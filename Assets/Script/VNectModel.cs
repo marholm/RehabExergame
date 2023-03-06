@@ -10,12 +10,16 @@ using UnityEngine.UI;
 /// Use the 33 Pose Landmark's from mediapipe (https://google.github.io/mediapipe/solutions/pose.html)
 ///</summary>
 
+/// <summary>
+///  Position index of joint point
+/// </summary>
 public enum PositionIndex: int
 {
     /// Position index of Joint Landmarks:
 
     Nose = 0, 
     lEyeInner,
+    lEye, 
     lEyeOuter,
     rEyeInner,
     rEye,
@@ -54,6 +58,9 @@ public enum PositionIndex: int
     chest,
     spine,
     hips,
+    // Since we are not using controllers, we have to calculate location of hands
+    lHand, 
+    rHand,
     lPhantomElbow,
     rPhantomElbow,
     centerHead,
@@ -76,13 +83,14 @@ public static partial class EnumExtend
 
 public class VNectModel : MonoBehaviour
 {
-    // JointPoint in ThreeDPoseUnityBarracuda
     public class JointPoint
     {
-        ///<summary> Class for mapping output position of joints from BlazePose to Avatar
+        ///<summary> 
+        /// Class for mapping output position of joints from BlazePose to Avatar
+        /// </summary>
         public Vector3 Pos3D = new Vector3();
-        public Vector3 Now3D = new Vector3();
-        public Vector3[] prevPose3D = new Vector3[6];
+        //public Vector3 Now3D = new Vector3();
+        //public Vector3[] prevPose3D = new Vector3[6];
         public float score3D;
 
         // Bones
@@ -110,7 +118,7 @@ public class VNectModel : MonoBehaviour
     private List<Skeleton> Skeletons = new List<Skeleton>();
     public Material SkeletonMaterial;
 
-    public bool ShowSkeleton;
+    public bool ShowSkeleton = true;
     private bool useSkeleton;
     public float SkeletonX;
     public float SkeletonY;
@@ -124,58 +132,65 @@ public class VNectModel : MonoBehaviour
     private Vector3 initPosition;   // Initial center position
     private Vector3 jointPositionOffset = Vector3.zero;
 
-    // Avatar (humanoid skeleton)
+    // Avatar 
     public GameObject ModelObject;
     public GameObject Nose;
     private Animator anim;
+
+        // For the calibration routine maily (I think) 
     private Vector3 avatarDimensions;
     private Vector3 avatarCenter;
 
 
     // HMD 
-    // Note! I am only setting up for the HMD, not the controllers
     private InputDevice hmdDevice;
-    private bool vrRunning = false;
+    private bool vrRunning;
     private Vector3 hmdPosition;
     private Quaternion hmdRotation; 
 
-    private string sceneName;   // Uncertain what this is for
+    private string sceneName;   
     public PoseVisuallizer3D PoseVisuallizer3D; 
     //public FaceManager FaceManager; 
     //public BodySourceView BodySourceView;
     public GameObject Instruction; 
-    private bool displayText = false; // Uncertain what this is for
+    private bool displayText = false; // ?
 
-
-    ///<summary> 
-    /// Initialize joint points
-    ///</summary>
     
+    void Awake()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
 
-    // Start is called before the first frame update
+        Instruction.SetActive(displayText);
+    }
 
-    // AWAKE FUNCTION HERE, CONSIDER REWRITING FOR BLAZEPOSE
-    //void Awake
-    //{
-        // todo
-    //}
 
-    // Update is called once per frame
     private void Update()
     {
         if (hmdDevice.isValid)
         {
             hmdDevice.TryGetFeatureValue(CommonUsages.devicePosition, out hmdPosition);
             hmdDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out hmdRotation);
+        
+            // Her har de controllerPositions
         }
 
         if (vrRunning)
         {
             // Head rotation
             jointPoints[PositionIndex.head.Int()].Transform.rotation = hmdRotation;
+
+            //Wrist positions
         }
 
-        // Potentialle here add calibration trigger
+        // ADD CALIBRATION TRIGGER HERE (prev: Primary button on left controller triggers calibration)
+        /*bool primaryButtonValue = false;
+        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame  
+        // || (leftController.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonValue) && primaryButtonValue != lastPrimaryButtonValue && primaryButtonValue)
+        )
+            RunCalibration();
+        lastPrimaryButtonValue = primaryButtonValue;*/
+
+        
 
         if (jointPoints != null)
         {
@@ -184,13 +199,15 @@ public class VNectModel : MonoBehaviour
         
     }
 
+
     ///<summary>
     /// Initialize joint points
     ///</summary>
-
+    /// <returns></returns>
     public JointPoint[] Initialize()
     {
-        vrRunning = isVrRunning();
+        //vrRunning = isVrRunning();
+        vrRunning = false;
         hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
 
         jointPoints = new JointPoint[PositionIndex.Count.Int()];
@@ -207,6 +224,15 @@ public class VNectModel : MonoBehaviour
 
         // Right Arm
         jointPoints[PositionIndex.rShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightUpperArm);
+        jointPoints[PositionIndex.rElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
+        jointPoints[PositionIndex.rWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightHand);
+        jointPoints[PositionIndex.rThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightThumbIntermediate);
+        jointPoints[PositionIndex.rPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLittleIntermediate);
+        
+        
+        /*
+        // RIGHT ARM IF ELSE FOR VR
+        jointPoints[PositionIndex.rShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightUpperArm);
         if (!vrRunning)
         {
             jointPoints[PositionIndex.rElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
@@ -219,9 +245,17 @@ public class VNectModel : MonoBehaviour
             jointPoints[PositionIndex.rPhantomElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
             // jointPoints[PositionIndex.rController.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightHand);
         }
+        */
 
-
-        // Left Arm
+        // Left arm
+        jointPoints[PositionIndex.lShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftUpperArm);
+        jointPoints[PositionIndex.lElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
+        jointPoints[PositionIndex.lWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftHand);
+        jointPoints[PositionIndex.lThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftThumbIntermediate);
+        jointPoints[PositionIndex.lPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLittleIntermediate); 
+        
+        /*
+        // LEFT ARM IF ELSE FOR VR
         jointPoints[PositionIndex.lShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftUpperArm);
         if (!vrRunning)
         {
@@ -235,9 +269,14 @@ public class VNectModel : MonoBehaviour
             jointPoints[PositionIndex.lPhantomElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
             // jointPoints[PositionIndex.lController.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftHand);
         }
+        */
 
         // Head
-        // RETURN HERE
+        jointPoints[PositionIndex.lEar.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Head);
+        jointPoints[PositionIndex.lEye.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftEye);
+        jointPoints[PositionIndex.rEar.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Head);
+        jointPoints[PositionIndex.rEye.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightEye);
+        jointPoints[PositionIndex.Nose.Int()].Transform = Nose.transform;
 
         // Right Leg
         jointPoints[PositionIndex.rHip.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightUpperLeg);
@@ -339,7 +378,10 @@ public class VNectModel : MonoBehaviour
             }
 
             // Head
-            // RETURN HERE
+            AddSkeleton(PositionIndex.lEar, PositionIndex.lEye);
+            AddSkeleton(PositionIndex.lEye, PositionIndex.Nose);
+            AddSkeleton(PositionIndex.rEar, PositionIndex.rEye);
+            AddSkeleton(PositionIndex.rEye, PositionIndex.Nose);
             
             // Right leg
             AddSkeleton(PositionIndex.rHip, PositionIndex.rKnee);
@@ -387,10 +429,17 @@ public class VNectModel : MonoBehaviour
         hips.InverseRotation = hips.Inverse * hips.InitRotation;
 
         // Head rotation
-        // RETURN HERE
+        var head = jointPoints[PositionIndex.head.Int()];
+        head.InitRotation = jointPoints[PositionIndex.head.Int()].Transform.rotation;
+
+        var gaze = jointPoints[PositionIndex.Nose.Int()].Transform.position - jointPoints[PositionIndex.head.Int()].Transform.position;
+            head.Inverse = Quaternion.Inverse(Quaternion.LookRotation(gaze));
+            head.InverseRotation = head.Inverse * head.InitRotation;
 
 
-        // Wrist rotation
+        // Wrist rotation EVT KOM TILBAKE HIT
+        // Usikker, kanskje ikke ha i if-en, siden om dt er ment som option for
+        // kontrollere burde den egt være gyldig alltid
         if (! vrRunning)
         {
             // Wrists rotation
@@ -411,11 +460,9 @@ public class VNectModel : MonoBehaviour
 
     }
 
-    // FORTSETT HER
 
     public void PoseUpdate()
     {
-        // Rotation and movement of center
         // movement and rotatation of the center
         var forward = TriangleNormal(jointPoints[PositionIndex.hips.Int()].Pos3D, jointPoints[PositionIndex.lHip.Int()].Pos3D, jointPoints[PositionIndex.rHip.Int()].Pos3D);
         if(!vrRunning)
@@ -496,7 +543,6 @@ public class VNectModel : MonoBehaviour
     ///</summary>
     /// <param name="s">position index</param>
     /// <param name="e">position index</param>
-
     private void AddSkeleton(PositionIndex s, PositionIndex e)
     {
         var sk = new Skeleton()
@@ -517,7 +563,8 @@ public class VNectModel : MonoBehaviour
         Skeletons.Add(sk);
     }
 
-    // Return TRUE if VR is enabled
+    // Returns TRUE if VR is enabled
+    // TRY: FAKE XR DIABLED, SE HVA SOM SKEJR
     private static bool isVrRunning()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
@@ -546,15 +593,15 @@ public class VNectModel : MonoBehaviour
     }
 
     /*
-    // Pose calibration routine
+    // POSE CALIBRATION ENABLE
     // ADD TIL Posevisuallizer3D først
-    // Endre Posevidualizer til posevisuallizer!
     private void RunCalibration()
     {
         Instruction.SetActive(true);
         if (!vrRunning)
         {
             Debug.Log("Avatar calibration will begin in 5 seconds, please stand in T-pose!");
+            
             StartCoroutine(PoseVisuallizer3D.PoseCalibrationRoutine(vrRunning, poseTDimensionsCalculated => {
                     ScaleAvatar(poseTDimensionsCalculated);
                     Debug.Log("Avatar calibration done!");
@@ -600,9 +647,6 @@ public class VNectModel : MonoBehaviour
         jointPositionOffset.y = avatarCenter.y - avatarCenter.y * scaling.y;
         Debug.Log("Avatar scaling done");
     }
-
-    // They don't have this, so remove?
-    //void Start(){}
 
     
 }

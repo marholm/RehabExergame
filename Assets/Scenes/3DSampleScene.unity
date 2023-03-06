@@ -463,6 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222800828}
   - component: {fileID: 1222800827}
+  - component: {fileID: 1222800829}
   m_Layer: 0
   m_Name: Visuallizer
   m_TagString: Untagged
@@ -487,6 +488,8 @@ MonoBehaviour:
   inputImageUI: {fileID: 332225587}
   shader: {fileID: 4800000, guid: 33ca7d622658d844e81c06b6a8ac78fd, type: 3}
   humanExistThreshold: 0.5
+  VNectModel: {fileID: 0}
+  showSkeleton: 1
 --- !u!4 &1222800828
 Transform:
   m_ObjectHideFlags: 0
@@ -502,6 +505,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1222800829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222800826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34440f48e4dc9cd4f91f1bcfdd96ea8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkeletonMaterial: {fileID: 0}
+  ShowSkeleton: 0
+  SkeletonX: 0
+  SkeletonY: 0
+  SkeletonZ: 0
+  SkeletonScale: 0
+  ModelObject: {fileID: 0}
+  Nose: {fileID: 0}
+  PoseVisuallizer3D: {fileID: 0}
+  Instruction: {fileID: 0}
 --- !u!1 &1969868350
 GameObject:
   m_ObjectHideFlags: 0

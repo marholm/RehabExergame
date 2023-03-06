@@ -3,7 +3,12 @@ guid: f1126ae32770f634faebcb1c42c88a03
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainCamera: {instanceID: 0}
+  - webCamInput: {instanceID: 0}
+  - inputImageUI: {instanceID: 0}
+  - shader: {fileID: 4800000, guid: 33ca7d622658d844e81c06b6a8ac78fd, type: 3}
+  - VNectModel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
