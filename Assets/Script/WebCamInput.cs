@@ -6,6 +6,8 @@ public class WebCamInput : MonoBehaviour
     [SerializeField] Vector2 webCamResolution = new Vector2(1920, 1080);
     [SerializeField] Texture staticInput;
 
+    // public bool mirrorHorizontally = false;
+
     // Provide input image Texture.
     public Texture inputImageTexture{
         get{

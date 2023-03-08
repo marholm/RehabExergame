@@ -160,7 +160,7 @@ public class PoseVisuallizer3D : MonoBehaviour
         detecter.Dispose();
     }
 
-    // POSE CALIBRATION ENABLE
+    // The below code enables POSE CALIBRATION 
     
     public IEnumerator PoseCalibrationRoutine(bool vrRunning, System.Action<Vector3> callback = null)
     {
@@ -181,7 +181,7 @@ public class PoseVisuallizer3D : MonoBehaviour
     /// Scale BlazePose based on user's physical dimensions that are measured with HMD and controllers
     /// </summary>
     
-    // ISSUE: vrTDimensions.x utilizes controllers
+    // vrTDimensions.x utilizes controllers -> Wrong I don't think it does!
     public void ScalePose(Vector3 vrTDimensions, Vector3 poseTDimensions)
     {
         scaling.x = vrTDimensions.x / poseTDimensions.x;
