@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.5
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   webCamInput: {fileID: 636196908}
   inputImageUI: {fileID: 332225587}
   shader: {fileID: 4800000, guid: 33ca7d622658d844e81c06b6a8ac78fd, type: 3}
-  humanExistThreshold: 0.5
+  humanExistThreshold: 0.192
   VNectModel: {fileID: 0}
   showSkeleton: 1
 --- !u!4 &1222800828
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkeletonMaterial: {fileID: 0}
-  ShowSkeleton: 0
+  ShowSkeleton: 1
   SkeletonX: 0
   SkeletonY: 0
   SkeletonZ: 0

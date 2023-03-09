@@ -160,8 +160,22 @@ public class PoseVisuallizer3D : MonoBehaviour
         detecter.Dispose();
     }
 
-    // The below code enables POSE CALIBRATION 
-    
+    // Pose Calibration Routine
+    public IEnumerator PoseCalibrationRoutine(System.Action<Vector3> callback = null)
+    {
+        yield return new WaitForSeconds(5);
+        Vector3 poseTDimensions = Vector3.zero;
+        poseTDimensions.x = Vector3.Distance(detecter.GetPoseWorldLandmark(15), detecter.GetPoseWorldLandmark(16));
+        float floor = Mathf.Min(detecter.GetPoseWorldLandmark(29).y, detecter.GetPoseWorldLandmark(30).y, detecter.GetPoseWorldLandmark(31).y, detecter.GetPoseWorldLandmark(32).y);
+        poseTDimensions.y = detecter.GetPoseWorldLandmark(0).y - floor;
+        callback (poseTDimensions);
+            
+    }
+
+
+    // Pose Calibration (original)
+    // Takes is vrRunning originally
+    /*
     public IEnumerator PoseCalibrationRoutine(bool vrRunning, System.Action<Vector3> callback = null)
     {
         if (!vrRunning)
@@ -175,13 +189,12 @@ public class PoseVisuallizer3D : MonoBehaviour
         }
             
     }
+    */
     
 
     /// <summary>
     /// Scale BlazePose based on user's physical dimensions that are measured with HMD and controllers
     /// </summary>
-    
-    // vrTDimensions.x utilizes controllers -> Wrong I don't think it does!
     public void ScalePose(Vector3 vrTDimensions, Vector3 poseTDimensions)
     {
         scaling.x = vrTDimensions.x / poseTDimensions.x;

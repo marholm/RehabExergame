@@ -49,7 +49,6 @@ public enum PositionIndex: int
     humanVisible,
 
     // Calculated coordinates
-    // Bit confused what this is, potentiall come back here
     head,
     neck,
     chest,
@@ -83,11 +82,9 @@ public class VNectModel : MonoBehaviour
     public class JointPoint
     {
         ///<summary> 
-        /// Class for mapping output position of joints from BlazePose to Avatar
+        /// Class for JointPoint positions
         /// </summary>
         public Vector3 Pos3D = new Vector3();
-        //public Vector3 Now3D = new Vector3();
-        //public Vector3[] prevPose3D = new Vector3[6];
         public float score3D;
 
         // Bones
@@ -99,14 +96,12 @@ public class VNectModel : MonoBehaviour
         public JointPoint Child = null;
         public JointPoint Parent = null;
 
-
     }
 
     public class Skeleton
     {
         public GameObject LineObject;
         public LineRenderer Line;
-
         public JointPoint start = null;
         public JointPoint end = null;
 
@@ -114,7 +109,6 @@ public class VNectModel : MonoBehaviour
 
     private List<Skeleton> Skeletons = new List<Skeleton>();
     public Material SkeletonMaterial;
-
     public bool ShowSkeleton = true;
     private bool useSkeleton;
     public float SkeletonX;
@@ -139,33 +133,27 @@ public class VNectModel : MonoBehaviour
 
     // HMD 
     private InputDevice hmdDevice;
-    // private InputDevice leftController;
-    // private InputDevice rightController;
-    private bool lastPrimaryButtonValue = false;
+    // private bool lastPrimaryButtonValue = false;     // ERROR
     private bool vrRunning = false;
     private Vector3 hmdPosition;
-    // private Vector3 leftControllerPosition;
-    // private Vector3 rightControllerPosition;
     private Quaternion hmdRotation;
-    // private Quaternion leftControllerRotation;
-    // private Quaternion rightControllerRotation;
 
-    private string sceneName;
-    //private bool kinectScene = false;
+    // private string sceneName;   // ? Not necessary when only one scene
     public PoseVisuallizer3D PoseVisuallizer3D;
-    // public FaceManager FaceManager;
-    // public BodySourceView BodySourceView;
     public GameObject Instruction;
-    private bool displayText = false;
+    // private bool displayText = false;    // ENABLE FOR CALIIBRATION INTERFACE
 
 
     
+    /*
+    // ENABLE for Calibration interface and scene choice
     void Awake()
     {
         sceneName = SceneManager.GetActiveScene().name;
 
         Instruction.SetActive(displayText);
     }
+    */
 
 
     private void Update()
@@ -177,48 +165,29 @@ public class VNectModel : MonoBehaviour
             hmdDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out hmdRotation);
         }
 
-        // leftController position + rotation
-        // rightController position + rotation
-
+        /*
         if (vrRunning)
         {
             // Head rotation
             jointPoints[PositionIndex.head.Int()].Transform.rotation = hmdRotation;
 
-            // Wrist positions - utilizes controllerPositions
-            // jointPoints[PositionIndex.lController.Int()].Pos3D = leftControllerPosition - hmdPosition + jointPoints[PositionIndex.Nose.Int()].Pos3D;
-            // jointPoints[PositionIndex.rController.Int()].Pos3D = rightControllerPosition - hmdPosition + jointPoints[PositionIndex.Nose.Int()].Pos3D;
+            // Wrist positions
 
-            // Writst rotations - utilizes controllerRotations
-            ///jointPoints[PositionIndex.lController.Int()].Transform.rotation = leftControllerRotation * Quaternion.Euler(new Vector3(-180f, -90f, -80f));
-            // jointPoints[PositionIndex.rController.Int()].Transform.rotation = rightControllerRotation * Quaternion.Euler(new Vector3(0f, 90f, -80f));
+            // Wrist rotations
 
-            // Left elbow position - replaced lController with lWrist
-            Vector3 lElbowProjection = Vector3.Project((jointPoints[PositionIndex.lElbow.Int()].Pos3D - jointPoints[PositionIndex.lShoulder.Int()].Pos3D),
-            (jointPoints[PositionIndex.lWrist.Int()].Pos3D - jointPoints[PositionIndex.lShoulder.Int()].Pos3D)) + jointPoints[PositionIndex.lShoulder.Int()].Pos3D;
-            Vector3 lElbowProjectionElbow = jointPoints[PositionIndex.lElbow.Int()].Pos3D - lElbowProjection;
-            Vector3 lPhantomElbowProjection = Vector3.Lerp(jointPoints[PositionIndex.lShoulder.Int()].Pos3D, jointPoints[PositionIndex.lWrist.Int()].Pos3D, 0.5f);
-            jointPoints[PositionIndex.lPhantomElbow.Int()].Pos3D = lPhantomElbowProjection + lElbowProjectionElbow;
-
-            // Right elbow position - replaced rController with rWrist
-            Vector3 rElbowProjection = Vector3.Project((jointPoints[PositionIndex.rElbow.Int()].Pos3D - jointPoints[PositionIndex.rShoulder.Int()].Pos3D),
-            (jointPoints[PositionIndex.rWrist.Int()].Pos3D - jointPoints[PositionIndex.rShoulder.Int()].Pos3D)) + jointPoints[PositionIndex.rShoulder.Int()].Pos3D;
-            Vector3 rElbowProjectionElbow = jointPoints[PositionIndex.rElbow.Int()].Pos3D - rElbowProjection;
-            Vector3 rPhantomElbowProjection = Vector3.Lerp(jointPoints[PositionIndex.rShoulder.Int()].Pos3D, jointPoints[PositionIndex.rWrist.Int()].Pos3D, 0.5f);
-            jointPoints[PositionIndex.rPhantomElbow.Int()].Pos3D = rPhantomElbowProjection + rElbowProjectionElbow;
+            //Elbow positions
         }
+        */
 
-        
-
-        // ADD CALIBRATION TRIGGER HERE (prev: Primary button on left controller triggers calibration)
-        /*bool primaryButtonValue = false;
-        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame  
-        // || (leftController.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonValue) && primaryButtonValue != lastPrimaryButtonValue && primaryButtonValue)
-        )
+        // ADD CALIBRATION TRIGGER HERE 
+        /*
+        bool primaryButtonValue = false;
+        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
             RunCalibration();
-        lastPrimaryButtonValue = primaryButtonValue;*/
-
-        
+            lastPrimaryButtonValue = primaryButtonValue;        // evt skal denne utenfor if-en
+        }
+        */
 
         if (jointPoints != null)
         {
@@ -234,11 +203,9 @@ public class VNectModel : MonoBehaviour
     /// <returns></returns>
     public JointPoint[] Initialize()
     {
-        vrRunning = isVrRunning();
-        // vrRunning = false;   // if isVrRunning() doesn't work, test with this
-        hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
-        // leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        // rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        // vrRunning = isVrRunning();
+        // Enable for Vr
+        // hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
 
         jointPoints = new JointPoint[PositionIndex.Count.Int()];
         for (var i = 0; i < PositionIndex.Count.Int(); i++)
@@ -252,58 +219,24 @@ public class VNectModel : MonoBehaviour
         avatarDimensions.y = Nose.transform.position.y;
         avatarCenter = GetCenter(gameObject);
 
-        // Right Arm
+        // Right Arm 
+        // Removed if-else for Vr that utilized controllers
         jointPoints[PositionIndex.rShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightUpperArm);
         jointPoints[PositionIndex.rElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
         jointPoints[PositionIndex.rWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightHand);
         jointPoints[PositionIndex.rThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightThumbIntermediate);
         jointPoints[PositionIndex.rPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLittleIntermediate);
-        
-        
-        
-        // RIGHT ARM IF ELSE FOR VR
-        jointPoints[PositionIndex.rShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightUpperArm);
-        if (!vrRunning)
-        {
-            jointPoints[PositionIndex.rElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
-            jointPoints[PositionIndex.rWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightHand);
-            jointPoints[PositionIndex.rThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightThumbIntermediate);
-            jointPoints[PositionIndex.rPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLittleIntermediate);
-        }
-        else
-        {
-            // Replaced rController with rWrist
-            jointPoints[PositionIndex.rPhantomElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightLowerArm);
-            jointPoints[PositionIndex.rWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.RightHand);
-        }
-        
 
-        // Left arm
+        // Left Arm
+        // Removed if-else for Vr that utilized controllers
         jointPoints[PositionIndex.lShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftUpperArm);
         jointPoints[PositionIndex.lElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
         jointPoints[PositionIndex.lWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftHand);
         jointPoints[PositionIndex.lThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftThumbIntermediate);
         jointPoints[PositionIndex.lPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLittleIntermediate); 
-        
-        
-        // LEFT ARM IF ELSE FOR VR
-        jointPoints[PositionIndex.lShoulder.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftUpperArm);
-        if (!vrRunning)
-        {
-            jointPoints[PositionIndex.lElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
-            jointPoints[PositionIndex.lWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftHand);
-            jointPoints[PositionIndex.lThumb.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftThumbIntermediate);
-            jointPoints[PositionIndex.lPinky.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLittleIntermediate); 
-        }
-        else
-        {
-            // Replaced lController with lWrist
-            jointPoints[PositionIndex.lPhantomElbow.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
-            jointPoints[PositionIndex.lWrist.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftHand);
-        }
-        
 
         // Head
+        // Removed if-else for Vr && Kinectscene
         jointPoints[PositionIndex.lEar.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Head);
         jointPoints[PositionIndex.lEye.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.LeftEye);
         jointPoints[PositionIndex.rEar.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Head);
@@ -329,43 +262,25 @@ public class VNectModel : MonoBehaviour
         jointPoints[PositionIndex.spine.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Spine);
         jointPoints[PositionIndex.hips.Int()].Transform = anim.GetBoneTransform(HumanBodyBones.Hips);
 
-        // Parent-Child Setup
-        // Right arm
-        if (!vrRunning)
-        {
-            jointPoints[PositionIndex.rShoulder.Int()].Child = jointPoints[PositionIndex.rElbow.Int()];
-            jointPoints[PositionIndex.rElbow.Int()].Child = jointPoints[PositionIndex.rWrist.Int()];
-            jointPoints[PositionIndex.rElbow.Int()].Parent = jointPoints[PositionIndex.rShoulder.Int()];
-        }
-        else
-        {
-            jointPoints[PositionIndex.rShoulder.Int()].Child = jointPoints[PositionIndex.rPhantomElbow.Int()];
-            //jointPoints[PositionIndex.rPhantomElbow.Int()].Child = jointPoints[PositionIndex.rController.Int()];
-            jointPoints[PositionIndex.rPhantomElbow.Int()].Parent = jointPoints[PositionIndex.rShoulder.Int()];
-        }
+        
+        // PARENT-CHILD SETUP
+        // Right Arm
+        jointPoints[PositionIndex.rShoulder.Int()].Child = jointPoints[PositionIndex.rElbow.Int()];
+        jointPoints[PositionIndex.rElbow.Int()].Child = jointPoints[PositionIndex.rWrist.Int()];
+        jointPoints[PositionIndex.rElbow.Int()].Parent = jointPoints[PositionIndex.rShoulder.Int()];
 
+        // Left Arm
+        jointPoints[PositionIndex.lShoulder.Int()].Child = jointPoints[PositionIndex.lElbow.Int()];
+        jointPoints[PositionIndex.lElbow.Int()].Child = jointPoints[PositionIndex.lWrist.Int()];
+        jointPoints[PositionIndex.lElbow.Int()].Parent = jointPoints[PositionIndex.lShoulder.Int()];
 
-        // Left arm
-        if(!vrRunning)
-        {
-            jointPoints[PositionIndex.lShoulder.Int()].Child = jointPoints[PositionIndex.lElbow.Int()];
-            jointPoints[PositionIndex.lElbow.Int()].Child = jointPoints[PositionIndex.lWrist.Int()];
-            jointPoints[PositionIndex.lElbow.Int()].Parent = jointPoints[PositionIndex.lShoulder.Int()];
-        }
-        else
-        {
-            jointPoints[PositionIndex.lShoulder.Int()].Child = jointPoints[PositionIndex.lPhantomElbow.Int()];
-            //jointPoints[PositionIndex.lPhantomElbow.Int()].Child = jointPoints[PositionIndex.lController.Int()];
-            jointPoints[PositionIndex.lPhantomElbow.Int()].Parent = jointPoints[PositionIndex.lShoulder.Int()];
-        }
-
-        // Right leg
+        // Right Leg
         jointPoints[PositionIndex.rHip.Int()].Child = jointPoints[PositionIndex.rKnee.Int()];
         jointPoints[PositionIndex.rKnee.Int()].Child = jointPoints[PositionIndex.rAnkle.Int()];
         jointPoints[PositionIndex.rAnkle.Int()].Child = jointPoints[PositionIndex.rFootIndex.Int()];
         jointPoints[PositionIndex.rAnkle.Int()].Parent = jointPoints[PositionIndex.rKnee.Int()];
 
-        // Left leg
+        // Left Leg
         jointPoints[PositionIndex.lHip.Int()].Child = jointPoints[PositionIndex.lKnee.Int()];
         jointPoints[PositionIndex.lKnee.Int()].Child = jointPoints[PositionIndex.lAnkle.Int()];
         jointPoints[PositionIndex.lAnkle.Int()].Child = jointPoints[PositionIndex.lFootIndex.Int()];
@@ -381,33 +296,17 @@ public class VNectModel : MonoBehaviour
         if(useSkeleton)
         {
             // Skeleton lines
-            // Right arm
-            if (!vrRunning)
-            {
-                AddSkeleton(PositionIndex.rShoulder, PositionIndex.rElbow);
-                AddSkeleton(PositionIndex.rElbow, PositionIndex.rWrist);
-                AddSkeleton(PositionIndex.rWrist, PositionIndex.rThumb);
-                AddSkeleton(PositionIndex.rWrist, PositionIndex.rPinky);
-            }
-            else
-            {
-                AddSkeleton(PositionIndex.rShoulder, PositionIndex.rPhantomElbow);
-                AddSkeleton(PositionIndex.rPhantomElbow, PositionIndex.rWrist);
-            }
+            // Right Arm
+            AddSkeleton(PositionIndex.rShoulder, PositionIndex.rElbow);
+            AddSkeleton(PositionIndex.rElbow, PositionIndex.rWrist);
+            AddSkeleton(PositionIndex.rWrist, PositionIndex.rThumb);
+            AddSkeleton(PositionIndex.rWrist, PositionIndex.rPinky);
 
-            // Left arm
-            if(!vrRunning)
-            {
-                AddSkeleton(PositionIndex.lShoulder, PositionIndex.lElbow);
-                AddSkeleton(PositionIndex.lElbow, PositionIndex.lWrist);
-                AddSkeleton(PositionIndex.lWrist, PositionIndex.lThumb);
-                AddSkeleton(PositionIndex.lWrist, PositionIndex.lPinky);
-            }
-            else
-            {
-                AddSkeleton(PositionIndex.lShoulder, PositionIndex.lPhantomElbow);
-                AddSkeleton(PositionIndex.lPhantomElbow, PositionIndex.lWrist);
-            }
+            // Left Arm
+            AddSkeleton(PositionIndex.lShoulder, PositionIndex.lElbow);
+            AddSkeleton(PositionIndex.lElbow, PositionIndex.lWrist);
+            AddSkeleton(PositionIndex.lWrist, PositionIndex.lThumb);
+            AddSkeleton(PositionIndex.lWrist, PositionIndex.lPinky);
 
             // Head
             AddSkeleton(PositionIndex.lEar, PositionIndex.lEye);
@@ -415,12 +314,12 @@ public class VNectModel : MonoBehaviour
             AddSkeleton(PositionIndex.rEar, PositionIndex.rEye);
             AddSkeleton(PositionIndex.rEye, PositionIndex.Nose);
             
-            // Right leg
+            // Right Leg
             AddSkeleton(PositionIndex.rHip, PositionIndex.rKnee);
             AddSkeleton(PositionIndex.rKnee, PositionIndex.rAnkle);
             AddSkeleton(PositionIndex.rAnkle, PositionIndex.rFootIndex);
 
-            // Left leg
+            // Left Leg
             AddSkeleton(PositionIndex.lHip, PositionIndex.lKnee);
             AddSkeleton(PositionIndex.lKnee, PositionIndex.lAnkle);
             AddSkeleton(PositionIndex.lAnkle, PositionIndex.lFootIndex);
@@ -436,8 +335,8 @@ public class VNectModel : MonoBehaviour
             AddSkeleton(PositionIndex.hips, PositionIndex.lHip);
         }
 
-        // Set inverse
-        var forward = TriangleNormal(jointPoints[PositionIndex.hips.Int()].Transform.position, jointPoints[PositionIndex.lHip.Int()].Transform.position, jointPoints[PositionIndex.rHip.Int()].Transform.position);
+        // Set Inverse
+         var forward = TriangleNormal(jointPoints[PositionIndex.hips.Int()].Transform.position, jointPoints[PositionIndex.lHip.Int()].Transform.position, jointPoints[PositionIndex.rHip.Int()].Transform.position);
         foreach (var jointPoint in jointPoints)
         {
             if (jointPoint != null)
@@ -454,39 +353,32 @@ public class VNectModel : MonoBehaviour
             }
         }
 
-        // Hips rotation
+        // Hips Rotation
         var hips = jointPoints[PositionIndex.hips.Int()];
         initPosition = jointPoints[PositionIndex.hips.Int()].Transform.position;
         hips.Inverse = Quaternion.Inverse(Quaternion.LookRotation(forward));
         hips.InverseRotation = hips.Inverse * hips.InitRotation;
 
-        // Head rotation
+        // Head Rotation
         var head = jointPoints[PositionIndex.head.Int()];
         head.InitRotation = jointPoints[PositionIndex.head.Int()].Transform.rotation;
-
         var gaze = jointPoints[PositionIndex.Nose.Int()].Transform.position - jointPoints[PositionIndex.head.Int()].Transform.position;
-            head.Inverse = Quaternion.Inverse(Quaternion.LookRotation(gaze));
-            head.InverseRotation = head.Inverse * head.InitRotation;
+        head.Inverse = Quaternion.Inverse(Quaternion.LookRotation(gaze));
+        head.InverseRotation = head.Inverse * head.InitRotation;
 
-
-        // Wrist rotation EVT KOM TILBAKE HIT
-        // Usikker, kanskje ikke ha i if-en, siden om dt er ment som option for
-        // kontrollere burde den egt være gyldig alltid
-        if (! vrRunning)
-        {
-            // Wrists rotation
-            var lWrist = jointPoints[PositionIndex.lWrist.Int()];
-            var lf = TriangleNormal(lWrist.Pos3D, jointPoints[PositionIndex.lPinky.Int()].Pos3D, jointPoints[PositionIndex.lThumb.Int()].Pos3D);
-            lWrist.InitRotation = lWrist.Transform.rotation;
-            lWrist.Inverse = Quaternion.Inverse(Quaternion.LookRotation(jointPoints[PositionIndex.lThumb.Int()].Transform.position - jointPoints[PositionIndex.lPinky.Int()].Transform.position, lf));
-            lWrist.InverseRotation = lWrist.Inverse * lWrist.InitRotation;
-
-            var rWrist = jointPoints[PositionIndex.rWrist.Int()];
-            var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
-            rWrist.InitRotation = jointPoints[PositionIndex.rWrist.Int()].Transform.rotation;
-            rWrist.Inverse = Quaternion.Inverse(Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Transform.position - jointPoints[PositionIndex.rPinky.Int()].Transform.position, rf));
-            rWrist.InverseRotation = rWrist.Inverse * rWrist.InitRotation;
-        }
+        // Wrists Rotation
+        //Left
+        var lWrist = jointPoints[PositionIndex.lWrist.Int()];
+        var lf = TriangleNormal(lWrist.Pos3D, jointPoints[PositionIndex.lPinky.Int()].Pos3D, jointPoints[PositionIndex.lThumb.Int()].Pos3D);
+        lWrist.InitRotation = lWrist.Transform.rotation;
+        lWrist.Inverse = Quaternion.Inverse(Quaternion.LookRotation(jointPoints[PositionIndex.lThumb.Int()].Transform.position - jointPoints[PositionIndex.lPinky.Int()].Transform.position, lf));
+        lWrist.InverseRotation = lWrist.Inverse * lWrist.InitRotation;
+        // Right
+        var rWrist = jointPoints[PositionIndex.rWrist.Int()];
+        var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
+        rWrist.InitRotation = jointPoints[PositionIndex.rWrist.Int()].Transform.rotation;
+        rWrist.Inverse = Quaternion.Inverse(Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Transform.position - jointPoints[PositionIndex.rPinky.Int()].Transform.position, rf));
+        rWrist.InverseRotation = rWrist.Inverse * rWrist.InitRotation;
 
         return JointPoints;
 
@@ -495,21 +387,25 @@ public class VNectModel : MonoBehaviour
 
     public void PoseUpdate()
     {
-        // movement and rotatation of the center
+        // Movement and Rotatation of the Center
         var forward = TriangleNormal(jointPoints[PositionIndex.hips.Int()].Pos3D, jointPoints[PositionIndex.lHip.Int()].Pos3D, jointPoints[PositionIndex.rHip.Int()].Pos3D);
+        
+        jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D + initPosition - jointPositionOffset; // Took this out of the if-else for Vr
+        
+        /*
+        // This vrRunning if-else only utilized hmdDevicePosition, so could be useful
         if(!vrRunning)
             jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D + initPosition - jointPositionOffset;
         else
         {
-            //if (kinectScene)
-            //    jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.phantomNose.Int()].Pos3D + hmdPosition - jointPositionOffset;
-            //else
             jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.Nose.Int()].Pos3D + hmdPosition - jointPositionOffset;
         }
+        */
+
         jointPoints[PositionIndex.hips.Int()].Transform.rotation = Quaternion.LookRotation(forward) * jointPoints[PositionIndex.hips.Int()].InverseRotation;
 
         
-        // Rotation for each of the bones
+        // Rotation of each of the Bones
         foreach (var jointPoint in jointPoints)
         {
             if (jointPoint.Parent != null)
@@ -523,7 +419,16 @@ public class VNectModel : MonoBehaviour
             }
         }
 
-         if(!vrRunning)
+        // Head Rotation
+        // Took this out of the below !vrRunning
+        var gaze = jointPoints[PositionIndex.Nose.Int()].Pos3D - jointPoints[PositionIndex.head.Int()].Pos3D;
+        var f = TriangleNormal(jointPoints[PositionIndex.Nose.Int()].Pos3D, jointPoints[PositionIndex.rEar.Int()].Pos3D, jointPoints[PositionIndex.lEar.Int()].Pos3D);
+        var head = jointPoints[PositionIndex.head.Int()];
+        head.Transform.rotation = Quaternion.LookRotation(gaze, f) * head.InverseRotation;
+
+        /*
+        //Head rotation
+        if(!vrRunning)
         {
             // Head Rotation
             var gaze = jointPoints[PositionIndex.Nose.Int()].Pos3D - jointPoints[PositionIndex.head.Int()].Pos3D;
@@ -531,7 +436,21 @@ public class VNectModel : MonoBehaviour
             var head = jointPoints[PositionIndex.head.Int()];
             head.Transform.rotation = Quaternion.LookRotation(gaze, f) * head.InverseRotation;
         }
+        */
 
+
+        // Wrist Rotation
+        // Took this out of the below !vrRunning
+        var lWrist = jointPoints[PositionIndex.lWrist.Int()];
+        var lf = TriangleNormal(lWrist.Pos3D, jointPoints[PositionIndex.lPinky.Int()].Pos3D, jointPoints[PositionIndex.lThumb.Int()].Pos3D);
+        lWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.lThumb.Int()].Pos3D - jointPoints[PositionIndex.lPinky.Int()].Pos3D, lf) * lWrist.InverseRotation;
+
+        var rWrist = jointPoints[PositionIndex.rWrist.Int()];
+        var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
+        rWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Pos3D - jointPoints[PositionIndex.rPinky.Int()].Pos3D, rf) * rWrist.InverseRotation;
+
+
+        /*
         if(!vrRunning)
         {
             // Wrist rotation
@@ -543,6 +462,7 @@ public class VNectModel : MonoBehaviour
             var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
             rWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Pos3D - jointPoints[PositionIndex.rPinky.Int()].Pos3D, rf) * rWrist.InverseRotation;
         }
+        */
 
         foreach (var sk in Skeletons)
         {
@@ -595,7 +515,8 @@ public class VNectModel : MonoBehaviour
         Skeletons.Add(sk);
     }
 
-    // Returns TRUE if VR is enabled
+    // Checks if an Xr device is connected and running - if so returns True
+    /*
     private static bool isVrRunning()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
@@ -609,6 +530,7 @@ public class VNectModel : MonoBehaviour
         }
         return false;
     }
+    */
 
     private Vector3 GetCenter(GameObject obj)
     {
@@ -623,8 +545,21 @@ public class VNectModel : MonoBehaviour
         return sumVector;
     }
 
-    
-    // POSE CALIBRATION ENABLE
+    private void RunCalibration()
+    {
+        Instruction.SetActive(true);
+        Debug.Log("Avatar calibration will begin in 5 seconds, please stand in T-pose!");
+        // Removed vrRunning as an argument in the PoseCalibrationRoutine method
+        StartCoroutine(PoseVisuallizer3D.PoseCalibrationRoutine(poseTDimensionsCalculated => {
+                    ScaleAvatar(poseTDimensionsCalculated);
+                    Debug.Log("Avatar calibration done!");
+                    Instruction.SetActive(false);
+                }));
+    }
+
+
+    /*
+    // Pose Calibration Routine - with Vr if-else
     private void RunCalibration()
     {
         Instruction.SetActive(true);
@@ -644,25 +579,29 @@ public class VNectModel : MonoBehaviour
             StartCoroutine(VrCalibrationRoutine(vrTDimensionsCalculated => {
                 Vector3 vrTDimensions = vrTDimensionsCalculated;
             
-                StartCoroutine(PoseVisualizer3D.PoseCalibrationRoutine(vrRunning, poseTDimensionsCalculated => {
-                            PoseVisualizer3D.ScalePose(vrTDimensions, poseTDimensionsCalculated);
-                            Debug.Log("VR calibration done!");
-                            Instruction.SetActive(false);
-                        }));
+                StartCoroutine(PoseVisuallizer3D.PoseCalibrationRoutine(vrRunning, poseTDimensionsCalculated => {
+                        PoseVisuallizer3D.ScalePose(vrTDimensions, poseTDimensionsCalculated);
+                        Debug.Log("VR calibration done!");
+                        Instruction.SetActive(false);
+                    }));
             }));
         }
-    }
+    }*/
 
+    /*
+    // Calibration routine for VR utilizing HMD and controllers for positions
+    // Only relevant once we enable VR
     private IEnumerator vrCalibrationRoutine(System.Action<Vector3> callback = null)
     {
         yield return new WaitForSeconds(5);
         Vector3 vrTDimensions = Vector3.zero;
         // changed fron leftControllerPosition, rightControllerPosition to lWrist, rWrist in vectorformat
-        vrTDimensions.x = Vector3.Distance(leftControllerPosition, rightControllerPosition);
+        // vrTDimensions.x = Vector3.Distance(leftControllerPosition, rightControllerPosition);
         vrTDimensions.y = hmdPosition.y;
         ScaleAvatar(vrTDimensions);
         callback (vrTDimensions);
     }
+    */
     
 
     ///<summary>
