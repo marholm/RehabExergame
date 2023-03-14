@@ -134,26 +134,26 @@ public class VNectModel : MonoBehaviour
     // HMD 
     private InputDevice hmdDevice;
     // private bool lastPrimaryButtonValue = false;     // ERROR
-    private bool vrRunning = false;
+    // private bool vrRunning = false;
     private Vector3 hmdPosition;
     private Quaternion hmdRotation;
 
     // private string sceneName;   // ? Not necessary when only one scene
     public PoseVisuallizer3D PoseVisuallizer3D;
     public GameObject Instruction;
-    // private bool displayText = false;    // ENABLE FOR CALIIBRATION INTERFACE
+    private bool displayText = false;    // ENABLE FOR CALIIBRATION INTERFACE
 
 
     
-    /*
+    
     // ENABLE for Calibration interface and scene choice
     void Awake()
     {
-        sceneName = SceneManager.GetActiveScene().name;
+        // sceneName = SceneManager.GetActiveScene().name;
 
         Instruction.SetActive(displayText);
     }
-    */
+    
 
 
     private void Update()
@@ -618,5 +618,4 @@ public class VNectModel : MonoBehaviour
         Debug.Log("Avatar scaling done");
     }
 
-    
 }

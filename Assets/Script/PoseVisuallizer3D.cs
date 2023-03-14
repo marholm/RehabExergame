@@ -161,6 +161,7 @@ public class PoseVisuallizer3D : MonoBehaviour
     }
 
     // Pose Calibration Routine
+    // Removed vrRunning as an argument in the poseCalibrationRoutine method
     public IEnumerator PoseCalibrationRoutine(System.Action<Vector3> callback = null)
     {
         yield return new WaitForSeconds(5);
