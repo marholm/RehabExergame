@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webCamName: 
   webCamResolution: {x: 800, y: 600}
-  staticInput: {fileID: 0}
+  staticInput: {fileID: 8400000, guid: 5e319a1b124140d4f83d2c9b2bbbc0f6, type: 2}
 --- !u!328 &636196909
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -646,7 +646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765897651}
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 0.8, z: -2}
+  m_LocalPosition: {x: 0, y: 1.8, z: -1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -785,7 +785,7 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: 33ca7d622658d844e81c06b6a8ac78fd, type: 3}
   humanExistThreshold: 0.119
   VNectModel: {fileID: 207140944}
-  showSkeleton: 1
+  showSkeleton: 0
 --- !u!4 &1222800828
 Transform:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: ee116a9c76d3a0e48bd97c1e76ed6bd3, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6e9f7d23aaf9b4a4aa92311f4d6fd929, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: ee116a9c76d3a0e48bd97c1e76ed6bd3, type: 3}
       propertyPath: m_CullingMode
       value: 0
