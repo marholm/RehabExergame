@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 33506544502393382}
   - component: {fileID: 23141340258673082}
   - component: {fileID: 1425129896660401506}
+  - component: {fileID: 1286266521648786467}
   m_Layer: 0
   m_Name: pear
-  m_TagString: Untagged
+  m_TagString: SpawnedFruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.009368628
   m_Center: {x: 0.0003751956, y: -0.0014180824, z: -1.7384464e-14}
+--- !u!54 &1286266521648786467
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763817136346132}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
