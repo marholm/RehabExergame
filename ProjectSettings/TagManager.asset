@@ -7,6 +7,9 @@ TagManager:
   - ForestElement
   - Ground
   - SpawnedFruit
+  - Hand
+  - Wrist
+  - Chest
   layers:
   - Default
   - TransparentFX

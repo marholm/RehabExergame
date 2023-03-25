@@ -47,7 +47,6 @@ public class PoseVisuallizer3D : MonoBehaviour
         material = new Material(shader);
         detecter = new BlazePoseDetecter();
         jointPoints = VNectModel.Initialize();
-
         
     }
 
@@ -130,8 +129,7 @@ public class PoseVisuallizer3D : MonoBehaviour
         // Calculate chest score
         jointPoints[PositionIndex.chest.Int()].score3D = hipsScores3D.Min();
 
-        Debug.Log("RIGHT-WRIST GPWL: " + detecter.GetPoseWorldLandmark(15));
-        Debug.Log("RIGHT-WRIST GPL:" + detecter.GetPoseLandmark(15));
+        // Debug.Log("RIGHT-WRIST GPWL: " + detecter.GetPoseWorldLandmark(15));     // This method lets me use the coordinates
 
     
     } 

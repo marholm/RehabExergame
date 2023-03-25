@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class DestroySpawnedObject : MonoBehaviour
 {
-
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "SpawnedFruit")
