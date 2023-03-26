@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23363714592162624}
   - component: {fileID: 5915411982318659916}
   - component: {fileID: 5020334990395214094}
+  - component: {fileID: -4768861898342097194}
   m_Layer: 0
   m_Name: apple
   m_TagString: SpawnedFruit
@@ -114,3 +115,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.008326167
   m_Center: {x: 0.0000000022351743, y: -0.00045378358, z: -1.1421409e-14}
+--- !u!114 &-4768861898342097194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829371231341652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f361dcda98f354983ef787d06d9274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
