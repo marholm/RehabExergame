@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23644498670348300}
   - component: {fileID: 5887899807486959387}
   - component: {fileID: 8992580450787381250}
-  - component: {fileID: 6787594441807737415}
+  - component: {fileID: 877445824326003774}
   m_Layer: 0
   m_Name: strawberry
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6787594441807737415
+--- !u!114 &877445824326003774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

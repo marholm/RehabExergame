@@ -9,6 +9,7 @@ public class DestroySpawnedObject : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
+        // Debug.Log("Plane collides with: " + collision.gameObject.tag);
         if (collision.gameObject.tag == "SpawnedFruit")
         {   
             Destroy(collision.gameObject);

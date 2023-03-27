@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23880431150685788}
   - component: {fileID: 151612724460538172}
   - component: {fileID: 8618454179125468123}
-  - component: {fileID: -7686669321096191087}
+  - component: {fileID: 6571374703234437925}
   m_Layer: 0
   m_Name: avocado
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-7686669321096191087
+--- !u!114 &6571374703234437925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23687049907564026}
   - component: {fileID: 3642628744338471953}
   - component: {fileID: 7399253865588386841}
-  - component: {fileID: 113194079139515281}
+  - component: {fileID: 7800585024180718127}
   m_Layer: 0
   m_Name: peanut
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &113194079139515281
+--- !u!114 &7800585024180718127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

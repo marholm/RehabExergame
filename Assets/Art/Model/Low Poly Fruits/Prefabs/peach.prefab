@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23053647269642574}
   - component: {fileID: 2305007590968985851}
   - component: {fileID: 4044516622095541430}
-  - component: {fileID: 517394072345444500}
+  - component: {fileID: 2275340256173684486}
   m_Layer: 0
   m_Name: peach
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &517394072345444500
+--- !u!114 &2275340256173684486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

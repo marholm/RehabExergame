@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23141340258673082}
   - component: {fileID: 1425129896660401506}
   - component: {fileID: 1286266521648786467}
-  - component: {fileID: 447226913826804822}
+  - component: {fileID: 6007089100582238545}
   m_Layer: 0
   m_Name: pear
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &447226913826804822
+--- !u!114 &6007089100582238545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

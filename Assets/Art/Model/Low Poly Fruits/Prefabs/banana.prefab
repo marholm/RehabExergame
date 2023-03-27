@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23874901463228454}
   - component: {fileID: 264824269620878000}
   - component: {fileID: 2202297203471297992}
-  - component: {fileID: 9211011709391519056}
+  - component: {fileID: 2567397408576714554}
   m_Layer: 0
   m_Name: banana
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9211011709391519056
+--- !u!114 &2567397408576714554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

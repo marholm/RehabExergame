@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23923918548762266}
   - component: {fileID: 6317045643687427021}
   - component: {fileID: 8566943195543214836}
-  - component: {fileID: 8507945509151571264}
+  - component: {fileID: 1930256205665636040}
   m_Layer: 0
   m_Name: lemon
   m_TagString: SpawnedFruit
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8507945509151571264
+--- !u!114 &1930256205665636040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
