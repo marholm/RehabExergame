@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1425129896660401506}
   - component: {fileID: 1286266521648786467}
   - component: {fileID: 6007089100582238545}
+  - component: {fileID: 5537371248232778235}
   m_Layer: 0
   m_Name: pear
   m_TagString: SpawnedFruit
@@ -127,3 +128,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f361dcda98f354983ef787d06d9274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCaught: 0
+--- !u!114 &5537371248232778235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763817136346132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239bf8a08795d134594245852098fa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopOnCollision: {fileID: 6007089100582238545}
+  objectToFollow_1: {fileID: 0}
+  objectToFollow_2: {fileID: 0}

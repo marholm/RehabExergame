@@ -6,6 +6,7 @@ public class StopOnCollision : MonoBehaviour
 {
     // TODO: Change script so isKinematic only turn on when fruit collides with gameobject with tag LeftHand OR RightHand!
     private Rigidbody rb;
+    public bool isCaught = false;   // må være public så follower scriptet kan bruke den
     
     /*
     // Makes fruit stop on collision with anything
@@ -21,21 +22,19 @@ public class StopOnCollision : MonoBehaviour
     }*/
     
     
-    
-    // This code does NOT function the same way as the code above. Not quite sure why.
-    // Might want to make it work later, now it stops on contact with any collider, bu ideally it should only stop on contact with hands. 
-    
     void Awake()
     {
-        rb = GetComponent<Rigidbody> ();
+        rb = GetComponent<Rigidbody>();
     }
     
     void OnCollisionEnter(Collision other)
     {
         Debug.Log(gameObject.tag + " COLLIDES WITH " + other.gameObject.tag);
+        // Endre tag til LeftHand og RightHand når du er ferdig teste
          if (other.gameObject.tag == "Player")
         {
             rb.isKinematic = true;
+            isCaught = true;
             //Debug.Log("STOP game object movement");
         }
     }

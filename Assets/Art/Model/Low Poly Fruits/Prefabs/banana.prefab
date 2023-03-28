@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 264824269620878000}
   - component: {fileID: 2202297203471297992}
   - component: {fileID: 2567397408576714554}
+  - component: {fileID: 737340682216559273}
   m_Layer: 0
   m_Name: banana
   m_TagString: SpawnedFruit
@@ -127,3 +128,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f361dcda98f354983ef787d06d9274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCaught: 0
+--- !u!114 &737340682216559273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407451490957870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239bf8a08795d134594245852098fa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopOnCollision: {fileID: 2567397408576714554}
+  objectToFollow_1: {fileID: 0}
+  objectToFollow_2: {fileID: 0}
