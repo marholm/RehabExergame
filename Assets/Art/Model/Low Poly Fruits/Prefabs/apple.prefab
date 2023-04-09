@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4411128782263238}
   - component: {fileID: 33253243558922508}
   - component: {fileID: 23363714592162624}
-  - component: {fileID: 5915411982318659916}
-  - component: {fileID: 5020334990395214094}
-  - component: {fileID: 4301761720570225645}
-  - component: {fileID: 6545970209584662161}
+  - component: {fileID: -4270821010478782880}
+  - component: {fileID: 6848829054621652471}
+  - component: {fileID: 6848829054621652470}
+  - component: {fileID: 7711878953886592850}
   m_Layer: 0
   m_Name: apple
   m_TagString: SpawnedFruit
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829371231341652}
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
-  m_LocalPosition: {x: -0.083, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &5915411982318659916
+--- !u!135 &-4270821010478782880
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829371231341652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.007872387
+  m_Center: {x: 0.0000000020954758, y: -0.0000000032596295, z: 0}
+--- !u!54 &6848829054621652471
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,20 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5020334990395214094
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829371231341652}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.008326167
-  m_Center: {x: 0.0000000022351743, y: -0.00045378358, z: -1.1421409e-14}
---- !u!114 &4301761720570225645
+--- !u!114 &6848829054621652470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f361dcda98f354983ef787d06d9274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 6848829054621652471}
   isCaught: 0
---- !u!114 &6545970209584662161
+  caughtByLeftHand: 0
+  caughtByRightHand: 0
+--- !u!114 &7711878953886592850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239bf8a08795d134594245852098fa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopOnCollision: {fileID: 4301761720570225645}
-  objectToFollow_1: {fileID: 0}
-  objectToFollow_2: {fileID: 0}
+  rb: {fileID: 6848829054621652471}
+  stopOnCollision: {fileID: 0}
+  targetLeft: {fileID: 0}
+  targetRight: {fileID: 0}
+  speed: 2

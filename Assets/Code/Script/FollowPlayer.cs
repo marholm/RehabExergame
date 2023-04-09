@@ -5,57 +5,86 @@ using System.Linq;
 
 public class FollowPlayer : MonoBehaviour
 {
+    [HideInInspector] public Rigidbody rb;
     
-    public StopOnCollision stopOnCollision; // ii vet ikke om den kan være private
-    
-    [HideInInspector]
-    public Transform objectToFollow_1; // transform of target object to follow 1 - LEFT hand
-    
-    [HideInInspector]
-    public Transform objectToFollow_2; // transform of target object to follow 2 - RIGHT hand
+    [HideInInspector] public StopOnCollision stopOnCollision; 
 
-     void Awake()
-    {
-        // Ingen forskjell på FindWithTag og FingGameObjectWithTag ifølge Unity forum
-        objectToFollow_1 = GameObject.FindWithTag("LeftHand").GetComponent<Transform>();
-        objectToFollow_2 = GameObject.FindWithTag("RightHand").GetComponent<Transform>();
-    }
+    [HideInInspector] public Transform targetLeft; 
     
+    [HideInInspector] public Transform targetRight; 
+    Vector3 direction;
+    //Vector3 directionL;
+    //Vector3 directionR;
+    public float speed = 2f;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        targetLeft = GameObject.FindWithTag("LeftHand").GetComponent<Transform>();
+        targetRight = GameObject.FindWithTag("RightHand").GetComponent<Transform>();
+    }
+
     void Update()
     {
-        if (stopOnCollision.isCaught)
-        {
-            Debug.Log("Fruit caught!");
-            if (objectToFollow_1.CompareTag("LeftHand"))
-            {
-                // transform.position - position til objektet scriptet festes til
-                Debug.Log("Follow LEFT hand");
-                transform.position = objectToFollow_1.position;
-            }
-            else 
-            {
-                Debug.Log("Follow RIGHT hand");
-                transform.position = objectToFollow_2.position;
-            }
+        // directionL = (targetLeft.position - transform.position).normalized;
+        // directionR = (targetRight.position - transform.position).normalized;
 
+        Debug.Log("Referenced object: " + stopOnCollision);
+        
+        if (stopOnCollision.caughtByLeftHand)
+        {
+            followLefttarget();
+        }
+        else if (stopOnCollision.caughtByRightHand)
+        {
+            direction = (targetRight.position - transform.position).normalized;
         }
     }
 
-    /*
-    public Transform target; // target to follow
-    Vector3 follower; // follower vector 
-    public Vector3 offset;  // buffer
-    
-    void Update()
+    void FixedUpdate()
     {
-        // transform.position er position til objektet scriptet er festet til
-        follower = (target.position - transform.position).normalized;
+        rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);     
+    }
+
+    void followLefttarget()
+    {
+        direction = (targetLeft.position - transform.position).normalized;
+        Debug.Log("Follow LEFT hand");
+        Debug.Log("Kinematic set to: "+ rb.isKinematic);
+    }
+
+    void followRightTarget()
+    {
+        direction = (targetRight.position - transform.position).normalized;
+        Debug.Log("Follow RIGHT hand");
+        Debug.Log("Kinematic set to: "+ rb.isKinematic);
     }
     
-    void Update()
+    /*void FollowTarget()
     {
-        transform.position = objectToFollow.position + offset;
+        if (stopOnCollision.isCaught)
+        {
+            if (stopOnCollision.caughtByLeftHand)
+            {
+                Debug.Log("Follow LEFT hand");
+                Debug.Log("is kinematic set to "+ rb.isKinematic);
+                direction = (targetLeft.position - transform.position).normalized;
+            }
+
+            else if (stopOnCollision.caughtByRightHand)
+            {
+                Debug.Log("Follow RIGHT hand");
+                direction = (targetRight.position - transform.position).normalized;
+            }
+        }
+    }*/
+
+    /*
+    void DisableRagdoll()
+    {
+        rb.isKinematic = true;
+        rb.detectCollisions = false;
     }
     */
-
 }
+

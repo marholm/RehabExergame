@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4584547189406814}
   - component: {fileID: 33770515996130108}
   - component: {fileID: 23687049907564026}
-  - component: {fileID: 3642628744338471953}
-  - component: {fileID: 7399253865588386841}
-  - component: {fileID: 7800585024180718127}
-  - component: {fileID: 2928184628656920110}
+  - component: {fileID: 2935878770029550336}
+  - component: {fileID: 2935878770029550335}
+  - component: {fileID: 2935878770029550334}
+  - component: {fileID: 1970220615331486830}
   m_Layer: 0
   m_Name: peanut
   m_TagString: SpawnedFruit
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3642628744338471953
+--- !u!135 &2935878770029550336
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.009783746
   m_Center: {x: 0, y: -4.6566134e-10, z: 0}
---- !u!54 &7399253865588386841
+--- !u!54 &2935878770029550335
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7800585024180718127
+--- !u!114 &2935878770029550334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f361dcda98f354983ef787d06d9274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 2935878770029550335}
   isCaught: 0
---- !u!114 &2928184628656920110
+  caughtByLeftHand: 0
+  caughtByRightHand: 0
+--- !u!114 &1970220615331486830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239bf8a08795d134594245852098fa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopOnCollision: {fileID: 7800585024180718127}
-  objectToFollow_1: {fileID: 0}
-  objectToFollow_2: {fileID: 0}
+  rb: {fileID: 2935878770029550335}
+  stopOnCollision: {fileID: 0}
+  targetLeft: {fileID: 0}
+  targetRight: {fileID: 0}
+  speed: 2

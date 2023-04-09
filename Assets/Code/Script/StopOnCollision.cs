@@ -3,13 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StopOnCollision : MonoBehaviour
-{
-    // TODO: Change script so isKinematic only turn on when fruit collides with gameobject with tag LeftHand OR RightHand!
-    private Rigidbody rb;
-    public bool isCaught = false;   // må være public så follower scriptet kan bruke den
+{   
+    public Rigidbody rb;
+    [HideInInspector] public bool isCaught = false;   
+    [HideInInspector] public bool caughtByLeftHand = false;
+    [HideInInspector] public bool caughtByRightHand = false;
     
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>(); 
+    }
+    
+    void OnCollisionEnter(Collision other)
+    {
+        // Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
+        // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
+         if ((other.gameObject.tag == "Player"))
+        {
+            isCaught = true;
+            rb.isKinematic = true;
+            
+            if (other.gameObject.tag == "Player")   // TODO!: == LeftHand
+            {
+                Debug.Log("Fruit caught by LeftHand!");
+                rb.isKinematic = true;
+                caughtByLeftHand = true;
+            }
+            else if (other.gameObject.tag == "RightHand")   // ? EVT: Bare ha else
+            {
+                Debug.Log("Fruit caught by RightHand!");
+                rb.isKinematic = true;
+                caughtByRightHand = true;
+            }
+        }
+    }
+
+    // Let the rigidbody take control and detect collisions.
+    void EnableRagdoll()
+    {
+        rb.isKinematic = false;
+        rb.detectCollisions = true;
+    }
+
+    // Let animation/ script control the rigidbody and ignore collisions.
+    void DisableRagdoll()
+    {
+        rb.isKinematic = true;
+        rb.detectCollisions = false;
+    }
+
     /*
-    // Makes fruit stop on collision with anything
+    // Makes fruit stop on collision with anything:
     void Awake()
     {
 	    rb = GetComponent<Rigidbody> ();
@@ -19,32 +63,6 @@ public class StopOnCollision : MonoBehaviour
     {
         Debug.Log(gameObject.tag + " COLLIDES WITH " + other.gameObject.tag);
 	    rb.isKinematic = true;
-    }*/
-    
-    
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
     }
-    
-    void OnCollisionEnter(Collision other)
-    {
-        Debug.Log(gameObject.tag + " COLLIDES WITH " + other.gameObject.tag);
-        // Endre tag til LeftHand og RightHand når du er ferdig teste
-         if (other.gameObject.tag == "Player")
-        {
-            rb.isKinematic = true;
-            isCaught = true;
-            //Debug.Log("STOP game object movement");
-        }
-    }
-    /*void OnCollisionStay(Collision other)
-    {
-        //Debug.Log(gameObject.tag + " COLLIDES WITH " + other.gameObject.tag);
-        if (other.gameObject.tag == "Player")
-        {
-            rb.isKinematic = true;
-            //Debug.Log("STOP game object movement");
-        }
-    }*/
+    */
 }

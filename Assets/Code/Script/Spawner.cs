@@ -8,9 +8,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-
     public GameObject[] fruits;
     public GameObject peanutBomb;
+    private float delayTime = 3f;
     
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,8 @@ public class Spawner : MonoBehaviour
         
         if (Random.value <= .6f)
         {
-            Instantiate(fruits[randomFruitIndex], randomSpawnPosition, Quaternion.identity);
+            Instantiate(fruits[randomFruitIndex], randomSpawnPosition, Quaternion.identity);    // Use this in the final result
+            //Instantiate(fruits[0], randomSpawnPosition, Quaternion.identity);                 // Test - spawn only apples
         }
         
         else
@@ -36,6 +37,7 @@ public class Spawner : MonoBehaviour
             Instantiate(peanutBomb, randomSpawnPosition, Quaternion.identity);
         }
         
+        yield return new WaitForSeconds(delayTime); // Wait time between each spawn
         StartCoroutine(SpawnRandomGameObject());
     }
 
