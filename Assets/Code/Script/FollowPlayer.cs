@@ -5,7 +5,7 @@ using System.Linq;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [HideInInspector] public Rigidbody rb;
+    public Rigidbody rb;
     
     [HideInInspector] public StopOnCollision stopOnCollision; 
 
@@ -13,31 +13,30 @@ public class FollowPlayer : MonoBehaviour
     
     [HideInInspector] public Transform targetRight; 
     Vector3 direction;
-    //Vector3 directionL;
-    //Vector3 directionR;
     public float speed = 2f;
 
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         targetLeft = GameObject.FindWithTag("LeftHand").GetComponent<Transform>();
         targetRight = GameObject.FindWithTag("RightHand").GetComponent<Transform>();
+
+        if (stopOnCollision is null)
+        {
+            stopOnCollision = GetComponent<StopOnCollision>();
+        }
     }
 
     void Update()
     {
-        // directionL = (targetLeft.position - transform.position).normalized;
-        // directionR = (targetRight.position - transform.position).normalized;
-
         Debug.Log("Referenced object: " + stopOnCollision);
-        
-        if (stopOnCollision.caughtByLeftHand)
+        if (stopOnCollision.caughtByLeft)
         {
-            followLefttarget();
+            followLeftTarget();
         }
-        else if (stopOnCollision.caughtByRightHand)
+        else if (stopOnCollision.caughtByRight)
         {
-            direction = (targetRight.position - transform.position).normalized;
+            followRightTarget();
         }
     }
 
@@ -46,7 +45,7 @@ public class FollowPlayer : MonoBehaviour
         rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);     
     }
 
-    void followLefttarget()
+    void followLeftTarget()
     {
         direction = (targetLeft.position - transform.position).normalized;
         Debug.Log("Follow LEFT hand");
@@ -60,7 +59,8 @@ public class FollowPlayer : MonoBehaviour
         Debug.Log("Kinematic set to: "+ rb.isKinematic);
     }
     
-    /*void FollowTarget()
+    /*
+    void FollowTarget()
     {
         if (stopOnCollision.isCaught)
         {
@@ -77,13 +77,6 @@ public class FollowPlayer : MonoBehaviour
                 direction = (targetRight.position - transform.position).normalized;
             }
         }
-    }*/
-
-    /*
-    void DisableRagdoll()
-    {
-        rb.isKinematic = true;
-        rb.detectCollisions = false;
     }
     */
 }

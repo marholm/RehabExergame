@@ -5,11 +5,12 @@ using UnityEngine;
 public class StopOnCollision : MonoBehaviour
 {   
     public Rigidbody rb;
+    //public GameObject newFruit;
     [HideInInspector] public bool isCaught = false;   
-    [HideInInspector] public bool caughtByLeftHand = false;
-    [HideInInspector] public bool caughtByRightHand = false;
+    [HideInInspector] public bool caughtByLeft = false;
+    [HideInInspector] public bool caughtByRight = false;
     
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>(); 
     }
@@ -18,7 +19,7 @@ public class StopOnCollision : MonoBehaviour
     {
         // Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
         // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
-         if ((other.gameObject.tag == "Player"))
+        if ((other.gameObject.tag == "Player"))
         {
             isCaught = true;
             rb.isKinematic = true;
@@ -27,13 +28,13 @@ public class StopOnCollision : MonoBehaviour
             {
                 Debug.Log("Fruit caught by LeftHand!");
                 rb.isKinematic = true;
-                caughtByLeftHand = true;
+                caughtByLeft = true;
             }
-            else if (other.gameObject.tag == "RightHand")   // ? EVT: Bare ha else
+            else if (other.gameObject.tag == "RightHand")   
             {
                 Debug.Log("Fruit caught by RightHand!");
                 rb.isKinematic = true;
-                caughtByRightHand = true;
+                caughtByRight = true;
             }
         }
     }

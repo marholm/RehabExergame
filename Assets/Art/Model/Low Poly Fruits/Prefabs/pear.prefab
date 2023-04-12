@@ -130,8 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1286266521648786467}
   isCaught: 0
-  caughtByLeftHand: 0
-  caughtByRightHand: 0
+  caughtByLeft: 0
+  caughtByRight: 0
 --- !u!114 &5537371248232778235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239bf8a08795d134594245852098fa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 1286266521648786467}
   stopOnCollision: {fileID: 6007089100582238545}
   targetLeft: {fileID: 0}
   targetRight: {fileID: 0}

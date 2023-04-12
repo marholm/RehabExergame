@@ -8,11 +8,19 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] fruits;
-    public GameObject peanutBomb;
+    public GameObject[] fruitsPrefab;
+    public GameObject peanutPrefab;
+    //GameObject newFruit;
     private float delayTime = 3f;
+
+    [HideInInspector] public StopOnCollision stopOnCollision;
     
-    // Start is called before the first frame update
+    void Awake()
+    {
+        // use to stop spawner when a fruit is caught
+        stopOnCollision = GetComponent<StopOnCollision>();
+    }
+    
     void Start()
     {
         StartCoroutine(SpawnRandomGameObject());
@@ -21,23 +29,26 @@ public class Spawner : MonoBehaviour
     IEnumerator SpawnRandomGameObject()
     {
         yield return new WaitForSeconds(Random.Range(1, 2));
-        int randomFruitIndex = Random.Range(0, fruits.Length);
+        int randomFruitIndex = Random.Range(0, fruitsPrefab.Length);
         //Vector3 randomSpawnPosition = new Vector3(Random.Range(-1,2), 4, Random.Range(-1,2));
         Vector3 randomSpawnPosition = new Vector3(0, 2, 0);
 
         
         if (Random.value <= .6f)
         {
-            Instantiate(fruits[randomFruitIndex], randomSpawnPosition, Quaternion.identity);    // Use this in the final result
-            //Instantiate(fruits[0], randomSpawnPosition, Quaternion.identity);                 // Test - spawn only apples
+            //GameObject newFruit = Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);      // Try: set instantiated prefab explicitly as a gameobject
+            Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);
+           
+            //Instantiate(fruitsPrefab[1], randomSpawnPosition, Quaternion.identity);                                            // Test - spawn only apples
         }
         
         else
         {
-            Instantiate(peanutBomb, randomSpawnPosition, Quaternion.identity);
+            //GameObject newFruit = Instantiate(peanutPrefab, randomSpawnPosition, Quaternion.identity);
+            Instantiate(peanutPrefab, randomSpawnPosition, Quaternion.identity);
         }
-        
-        yield return new WaitForSeconds(delayTime); // Wait time between each spawn
+
+        yield return new WaitForSeconds(delayTime); // Wait between each spawn
         StartCoroutine(SpawnRandomGameObject());
     }
 
