@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Feedback : MonoBehaviour
 {
+
+    [HideInInspector] StopOnCollision stopOnCollision;
+    public float scoreCounter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +18,16 @@ public class Feedback : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    public void playerScore()
+    {
+        // calculate and save player score
+        if (stopOnCollision.isCaught)
+        {
+            scoreCounter += 1;
+        }
+
     }
 }
