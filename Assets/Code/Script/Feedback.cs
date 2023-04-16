@@ -1,33 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Feedback : MonoBehaviour
 {
-
+    public static Feedback instance;
+    //public Text scoreText;
+    //public Text highScoreText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
+    int score = 0;
+    int highScore = 0;
     [HideInInspector] StopOnCollision stopOnCollision;
-    public float scoreCounter;
+    
+    void Awake()
+    {
+        // set an instance of this script even before the start of the game
+        instance = this;
+    }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        highScore = PlayerPrefs.GetInt("highscore", 0);
+        // reset counter
+        scoreText.text = score.ToString() + " POINTS";
+        highScoreText.text = "HIGHSCORE: " + highScore.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-    public void playerScore()
+    public void AddPoint()
     {
         // calculate and save player score
-        if (stopOnCollision.isCaught)
+        score += 1;
+        scoreText.text = score.ToString() + " POINTS";
+
+        if (highScore < score)
         {
-            scoreCounter += 1;
+            PlayerPrefs.SetInt("highscore", score);
         }
+
+
 
     }
 }

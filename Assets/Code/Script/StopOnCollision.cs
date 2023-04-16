@@ -19,23 +19,20 @@ public class StopOnCollision : MonoBehaviour
     {
         // Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
         // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
-        if ((other.gameObject.tag == "Player"))
+        if (other.gameObject.tag == "Player")   // TODO!: == LeftHand
         {
+            Debug.Log("Fruit caught by LeftHand!");
             isCaught = true;
             rb.isKinematic = true;
-            
-            if (other.gameObject.tag == "Player")   // TODO!: == LeftHand
-            {
-                Debug.Log("Fruit caught by LeftHand!");
-                rb.isKinematic = true;
-                caughtByLeft = true;
-            }
-            else if (other.gameObject.tag == "RightHand")   
-            {
-                Debug.Log("Fruit caught by RightHand!");
-                rb.isKinematic = true;
-                caughtByRight = true;
-            }
+            caughtByLeft = true;
+            Feedback.instance.AddPoint();
+        }
+        else if (other.gameObject.tag == "RightHand")   
+        {
+            Debug.Log("Fruit caught by RightHand!");
+            isCaught = true;
+            rb.isKinematic = true;
+            caughtByRight = true;
         }
     }
 
