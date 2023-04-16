@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Score Manager script that counts points and tracks the highscore
+/// </summary>
+
 public class Feedback : MonoBehaviour
 {
     public static Feedback instance;
-    //public Text scoreText;
-    //public Text highScoreText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
     int score = 0;
     int highScore = 0;
-    [HideInInspector] StopOnCollision stopOnCollision;
     
     void Awake()
     {
@@ -24,7 +25,8 @@ public class Feedback : MonoBehaviour
     void Start()
     {
         highScore = PlayerPrefs.GetInt("highscore", 0);
-        // reset counter
+        
+        // reset counter at start of each game
         scoreText.text = score.ToString() + " POINTS";
         highScoreText.text = "HIGHSCORE: " + highScore.ToString();
     }
@@ -39,8 +41,5 @@ public class Feedback : MonoBehaviour
         {
             PlayerPrefs.SetInt("highscore", score);
         }
-
-
-
     }
 }
