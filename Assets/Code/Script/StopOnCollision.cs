@@ -5,8 +5,7 @@ using UnityEngine;
 public class StopOnCollision : MonoBehaviour
 {   
     public Rigidbody rb;
-    //public GameObject newFruit;
-    [HideInInspector] public bool isCaught = false;   
+    //public GameObject newFruit; 
     [HideInInspector] public bool caughtByLeft = false;
     [HideInInspector] public bool caughtByRight = false;
     
@@ -17,37 +16,22 @@ public class StopOnCollision : MonoBehaviour
     
     void OnCollisionEnter(Collision other)
     {
-        // Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
+        Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
         // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
         if (other.gameObject.tag == "Player")   // TODO!: == LeftHand
         {
+            Feedback.instance.AddPoint();   // Add point to score
             Debug.Log("Fruit caught by LeftHand!");
-            isCaught = true;
             rb.isKinematic = true;
             caughtByLeft = true;
-            Feedback.instance.AddPoint();
+            
         }
         else if (other.gameObject.tag == "RightHand")   
         {
             Debug.Log("Fruit caught by RightHand!");
-            isCaught = true;
             rb.isKinematic = true;
             caughtByRight = true;
         }
-    }
-
-    // Let the rigidbody take control and detect collisions.
-    void EnableRagdoll()
-    {
-        rb.isKinematic = false;
-        rb.detectCollisions = true;
-    }
-
-    // Let animation/ script control the rigidbody and ignore collisions.
-    void DisableRagdoll()
-    {
-        rb.isKinematic = true;
-        rb.detectCollisions = false;
     }
 
     /*
