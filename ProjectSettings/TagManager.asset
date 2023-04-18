@@ -10,6 +10,7 @@ TagManager:
   - Wrist
   - RightHand
   - LeftHand
+  - FruitBasket
   layers:
   - Default
   - TransparentFX

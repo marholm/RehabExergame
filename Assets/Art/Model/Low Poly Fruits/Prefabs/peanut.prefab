@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3908067405573822572}
   - component: {fileID: 8914118357678023878}
   - component: {fileID: -4090750602293172104}
-  - component: {fileID: -1548093210089767735}
   m_Layer: 0
   m_Name: peanut
   m_TagString: SpawnedFruit
@@ -245,18 +244,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-1548093210089767735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329430274803916}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5efc43a5f051fc343a7553298e8f091f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: -4090750602293172104}
-  audioClip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
-  playAudio: 0

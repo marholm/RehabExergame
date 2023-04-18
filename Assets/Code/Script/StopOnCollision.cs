@@ -5,7 +5,6 @@ using UnityEngine;
 public class StopOnCollision : MonoBehaviour
 {   
     public Rigidbody rb;
-    //public GameObject newFruit; 
     [HideInInspector] public bool caughtByLeft = false;
     [HideInInspector] public bool caughtByRight = false;
     
@@ -20,7 +19,7 @@ public class StopOnCollision : MonoBehaviour
         // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
         if (other.gameObject.tag == "Player")                                                           // TODO!: == LeftHand
         {
-            Feedback.instance.AddPoint();                                                               // Add point to score
+            Feedback.instance.AddPointMovement_1();                                                               // Add point to score
             Debug.Log("Fruit caught by LeftHand!");
             rb.isKinematic = true;
             caughtByLeft = true;
