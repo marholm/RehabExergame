@@ -3,35 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Add audio when a fruit spawns
-/// https://gamedevbeginner.com/how-to-play-audio-in-unity-with-examples/
-/// https://forum.unity.com/threads/play-sound-at-certain-time.289900/
-/// https://gamedevbeginner.com/how-to-play-audio-in-unity-with-examples/#play_repeating_sound
+/// Play audio when fruit spawns
 /// </summary>
 public class PlayAudio : MonoBehaviour
 {
     public AudioSource audioSource;     // Component to play audio
-    public AudioClip audioClip;         // An audio file you want to play
+    public AudioClip audioClip;
+    public bool playAudio;
     
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        //Invoke("PlaySound", 25.0f);   // we want to invoke PlaySound method when fruit falls
+        audioSource = GetComponent<AudioSource>();        // Fetch audioSource component
+        playAudio = true;
     }
 
+    void Update()
+    {
+        /*if (playAudio)
+        {
+            //Play the audio you attach to the AudioSource component
+            audioSource.PlayOneShot(audioClip);
+            
+            //audioSource.Play();
+        }*/
+
+        Invoke("PlaySound", 3.0f);
+    }
+
+    
     void PlaySound()
     {
         // play
-        /*if (!GetComponent<AudioSource>())
+        if (!GetComponent<AudioSource>())
         {
             gameObject.AddComponent<AudioSource>();
         }
         if (audioClip)
         {
             audioSource.PlayOneShot(audioClip, 0.7f);
-        }*/
-
-        audioSource.Play();
+        }  
     }
 }

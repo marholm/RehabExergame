@@ -18,9 +18,9 @@ public class StopOnCollision : MonoBehaviour
     {
         Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
         // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
-        if (other.gameObject.tag == "Player")   // TODO!: == LeftHand
+        if (other.gameObject.tag == "Player")                                                           // TODO!: == LeftHand
         {
-            Feedback.instance.AddPoint();   // Add point to score
+            Feedback.instance.AddPoint();                                                               // Add point to score
             Debug.Log("Fruit caught by LeftHand!");
             rb.isKinematic = true;
             caughtByLeft = true;
@@ -33,18 +33,4 @@ public class StopOnCollision : MonoBehaviour
             caughtByRight = true;
         }
     }
-
-    /*
-    // Makes fruit stop on collision with anything:
-    void Awake()
-    {
-	    rb = GetComponent<Rigidbody> ();
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        Debug.Log(gameObject.tag + " COLLIDES WITH " + other.gameObject.tag);
-	    rb.isKinematic = true;
-    }
-    */
 }

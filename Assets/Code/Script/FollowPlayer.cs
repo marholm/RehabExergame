@@ -10,12 +10,10 @@ public class FollowPlayer : MonoBehaviour
     [HideInInspector] public StopOnCollision stopOnCollision; 
 
     public Transform targetLeft; 
-    
     public Transform targetRight; 
-    Vector3 direction;
-
     
-    public float speed = 2f;
+    //Vector3 direction;
+    //public float speed = 2f;
 
     void Start()
     {
@@ -32,16 +30,18 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         Debug.Log("Referenced object: " + stopOnCollision);
+
         if (stopOnCollision.caughtByLeft)
         {
-            followLeftTarget();
+            rb.MovePosition(targetLeft.position);
         }
         else if (stopOnCollision.caughtByRight)
         {
-            followRightTarget();
+            rb.MovePosition(targetRight.position);
         }
     }
 
+    /*
     void FixedUpdate()
     {
         //rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);     
@@ -59,31 +59,6 @@ public class FollowPlayer : MonoBehaviour
         direction = (targetRight.position - transform.position).normalized;
         Debug.Log("Follow RIGHT hand");
     }
-    
-    
-    
-    // EMANUELS FORSLAG
-
-        /*void Awake()
-    {
-        targetLeft = GameObject.FindWithTag("LeftHand").GetComponent<Transform>();
-    }
-
-    void Start()
-    {
-        if (stopOnCollision is null)
-        {
-            stopOnCollision = GetComponent<StopOnCollision>();
-        }
-    }
-
-    void Update()
-    {
-        if (stopOnCollision.caughtByLeft)
-        {
-            transform.position = targetLeft.position;
-            transform.rotation = targetLeft.rotation;
-        }
-    }*/
+    */
 }
 
