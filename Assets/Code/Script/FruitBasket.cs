@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class FruitBasket : MonoBehaviour
 {
-    [HideInInspector] public StopOnCollision stopOnCollision; 
+    // [HideInInspector] public StopOnCollision stopOnCollision; 
     void OnCollisionEnter(Collision other)
     {
         Debug.Log("Basket collides with: " + other.gameObject.tag);
@@ -16,14 +16,6 @@ public class FruitBasket : MonoBehaviour
         {   
             Feedback.instance.AddPointMovement_2();     // Add point for movement 2
             Destroy(other.gameObject);
-        }
-    }
-
-    void Update()
-    {
-        if (stopOnCollision.caughtByLeft || stopOnCollision.caughtByRight)
-        {
-            // oncollisionenter();
         }
     }
 }

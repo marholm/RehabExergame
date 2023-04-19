@@ -645,66 +645,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332225585}
   m_CullTransparentMesh: 1
---- !u!1 &455735393
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 455735394}
-  - component: {fileID: 455735396}
-  - component: {fileID: 455735395}
-  m_Layer: 0
-  m_Name: FruitBasket
-  m_TagString: FruitBasket
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &455735394
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455735393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.16727497, y: 2.049, z: -1.1744642}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1090174018}
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &455735395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455735393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02dd7a51178abf24cb3601c91f5d2254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!64 &455735396
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455735393}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1001 &514991622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1107,6 +1047,66 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 644134610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &649504661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649504662}
+  - component: {fileID: 649504664}
+  - component: {fileID: 649504663}
+  m_Layer: 0
+  m_Name: FruitBasket
+  m_TagString: FruitBasket
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &649504662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649504661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1090174018}
+  m_Father: {fileID: 1273592393}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &649504663
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649504661}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300024, guid: fe9ba93f508bf1849bce40f4ae043ed2, type: 3}
+--- !u!114 &649504664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649504661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02dd7a51178abf24cb3601c91f5d2254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &765897651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2240,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 455735394}
+    m_TransformParent: {fileID: 649504662}
     m_Modifications:
     - target: {fileID: 157286, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_TagString
@@ -2260,27 +2260,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.148
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.168
+      value: 0.285
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.141
+      value: -0.026
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2292,11 +2292,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 474082, guid: 975da3ed9b4e81549a02e5e08d19369b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2682,6 +2682,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1273592393 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: a5f24d8d238b86147abff53f77968440,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430411841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1300402206
 GameObject:
   m_ObjectHideFlags: 0
