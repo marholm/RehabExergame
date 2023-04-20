@@ -36,13 +36,10 @@ public class Spawner : MonoBehaviour
         if (Random.value <= .6f)
         {
             Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);
-           
-            //Instantiate(fruitsPrefab[1], randomSpawnPosition, Quaternion.identity);                              // Test - spawn only apples
         }
         
         else
         {
-            //GameObject newFruit = Instantiate(peanutPrefab, randomSpawnPosition, Quaternion.identity);
             Instantiate(peanutPrefab, randomSpawnPosition, Quaternion.identity);
         }
 
