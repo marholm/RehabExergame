@@ -16,7 +16,6 @@ public class StopOnCollision : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         Debug.Log(gameObject.tag + " collides with " + other.gameObject.tag); 
-        // TODO!: if ((other.gameObject.tag == "LeftHand") || (other.gameObject.tag == "RightHand"))
         if (other.gameObject.tag == "Player")                                                           // TODO!: == LeftHand
         {
             Feedback.instance.AddPointMovement_1();                                                               // Add point to score
@@ -27,6 +26,7 @@ public class StopOnCollision : MonoBehaviour
         }
         else if (other.gameObject.tag == "RightHand")   
         {
+            Feedback.instance.AddPointMovement_1();
             Debug.Log("Fruit caught by RightHand!");
             rb.isKinematic = true;
             caughtByRight = true;

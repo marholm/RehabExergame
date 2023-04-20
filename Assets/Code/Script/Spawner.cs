@@ -10,8 +10,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] fruitsPrefab;
     public GameObject peanutPrefab;
-    //GameObject newFruit;
-    private float delayTime = 3f;
+    private float delayTime = 20f;
 
     [HideInInspector] public StopOnCollision stopOnCollision;
     
@@ -31,15 +30,14 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(1, 2));
         int randomFruitIndex = Random.Range(0, fruitsPrefab.Length);
         //Vector3 randomSpawnPosition = new Vector3(Random.Range(-1,2), 4, Random.Range(-1,2));
-        Vector3 randomSpawnPosition = new Vector3(0, 3, 0);                                                                     // Force position of spawns to always hit player (for testing)
+        Vector3 randomSpawnPosition = new Vector3(0, 4, 0);                                                        // Force position of spawns to always hit player (for testing)
 
         
         if (Random.value <= .6f)
         {
-            //GameObject newFruit = Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);      // Try: set instantiated prefab explicitly as a gameobject
             Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);
            
-            //Instantiate(fruitsPrefab[1], randomSpawnPosition, Quaternion.identity);                                           // Test - spawn only apples
+            //Instantiate(fruitsPrefab[1], randomSpawnPosition, Quaternion.identity);                              // Test - spawn only apples
         }
         
         else

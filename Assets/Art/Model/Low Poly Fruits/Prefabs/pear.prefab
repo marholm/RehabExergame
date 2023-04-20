@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6007089100582238545}
   - component: {fileID: 5537371248232778235}
   - component: {fileID: -6639656185103150998}
+  - component: {fileID: -1334690985375501569}
   m_Layer: 0
   m_Name: pear
   m_TagString: SpawnedFruit
@@ -155,7 +156,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763817136346132}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a0010a1a0c474473b81729eb770c485f, type: 3}
@@ -244,3 +245,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1334690985375501569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763817136346132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c253118cf0ca254cbcc43f3546a4abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopOnCollision: {fileID: 0}

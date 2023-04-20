@@ -36,7 +36,7 @@ public class Feedback : MonoBehaviour
 
     public void AddPointMovement_1()
     {
-        // calculate and save player score
+        // calculate and save player score for Movement 1 (Catch fruit)
         scoreMovement_1 += 1;
         scoreTextMovement_1.text = scoreMovement_1.ToString() + " POINTS";
 
@@ -48,13 +48,13 @@ public class Feedback : MonoBehaviour
 
     public void AddPointMovement_2()
     {
-        // calculate and save player score
+        // calculate and save player score for movement 2 (Place fruit in basket)
         scoreMovement_2 += 1;
         scoreTextMovement_2.text = scoreMovement_2.ToString() + " POINTS";
 
-        if (highScore < (scoreMovement_1 + scoreMovement_2))
+        /*if (highScore < (scoreMovement_1 + scoreMovement_2))
         {
             PlayerPrefs.SetInt("highscore", (scoreMovement_1 + scoreMovement_2));
-        }
+        }*/
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1568235785224603515}
   - component: {fileID: 3144719361994357420}
   - component: {fileID: -524547241779002305}
+  - component: {fileID: -2385987823415663986}
   m_Layer: 0
   m_Name: cherries
   m_TagString: SpawnedFruit
@@ -155,7 +156,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802840387486672}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a0010a1a0c474473b81729eb770c485f, type: 3}
@@ -244,3 +245,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2385987823415663986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802840387486672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c253118cf0ca254cbcc43f3546a4abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopOnCollision: {fileID: 0}

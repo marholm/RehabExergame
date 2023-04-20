@@ -27,9 +27,25 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
-    void Update()
+    /*void Update()
     {
-        Debug.Log("Referenced object: " + stopOnCollision);
+        // Should I use MovePosition in FixedUpdate() isntead since it matches the timesteps of the physics engine
+        // Debug.Log("Referenced object: " + stopOnCollision);
+
+        if (stopOnCollision.caughtByLeft)
+        {
+            rb.MovePosition(targetLeft.position);
+        }
+        else if (stopOnCollision.caughtByRight)
+        {
+            rb.MovePosition(targetRight.position);
+        }
+    }*/
+
+    
+    void FixedUpdate()
+    {
+        // rb.MovePosition(targetLeft.position);     
 
         if (stopOnCollision.caughtByLeft)
         {
@@ -40,25 +56,6 @@ public class FollowPlayer : MonoBehaviour
             rb.MovePosition(targetRight.position);
         }
     }
-
-    /*
-    void FixedUpdate()
-    {
-        //rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);     
-        rb.MovePosition(targetLeft.position);     
-    }
-
-    void followLeftTarget()
-    {
-        direction = (targetLeft.position - transform.position).normalized;
-        Debug.Log("Follow LEFT hand");
-    }
-
-    void followRightTarget()
-    {
-        direction = (targetRight.position - transform.position).normalized;
-        Debug.Log("Follow RIGHT hand");
-    }
-    */
+    
 }
 
