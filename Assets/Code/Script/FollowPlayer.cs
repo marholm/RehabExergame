@@ -11,9 +11,6 @@ public class FollowPlayer : MonoBehaviour
 
     public Transform targetLeft; 
     public Transform targetRight; 
-    
-    //Vector3 direction;
-    //public float speed = 2f;
 
     void Start()
     {

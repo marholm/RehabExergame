@@ -40,10 +40,7 @@ public class Feedback : MonoBehaviour
         scoreMovement_1 += 1;
         scoreTextMovement_1.text = scoreMovement_1.ToString() + " POINTS";
 
-        if (highScore < (scoreMovement_1 + scoreMovement_2))
-        {
-            PlayerPrefs.SetInt("highscore", (scoreMovement_1 + scoreMovement_2));
-        }
+        setHighScore();
     }
 
     public void AddPointMovement_2()
@@ -52,9 +49,14 @@ public class Feedback : MonoBehaviour
         scoreMovement_2 += 1;
         scoreTextMovement_2.text = scoreMovement_2.ToString() + " POINTS";
 
-        /*if (highScore < (scoreMovement_1 + scoreMovement_2))
+        setHighScore();
+    }
+
+    public void setHighScore()
+    {
+        if (highScore < (scoreMovement_1 + scoreMovement_2))
         {
             PlayerPrefs.SetInt("highscore", (scoreMovement_1 + scoreMovement_2));
-        }*/
+        }
     }
 }
