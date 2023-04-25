@@ -556,6 +556,7 @@ MonoBehaviour:
   - {fileID: 1125202155953082, guid: 573bb482e4baeec4386587db7cc07515, type: 3}
   peanutPrefab: {fileID: 1329430274803916, guid: 8c8c7d8f829a2d24ebe78eddb5eaff57,
     type: 3}
+  difficultySettingsManager: {fileID: 0}
   stopOnCollision: {fileID: 0}
 --- !u!4 &309536502
 Transform:

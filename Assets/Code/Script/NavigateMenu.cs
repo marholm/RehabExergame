@@ -7,8 +7,7 @@ public class NavigateMenu : MonoBehaviour
 {
     public void SwitchScene(string sceneName)
     {
-        Debug.Log("Load scene: " + sceneName);
+        Debug.Log("LOAD SCENE: " + sceneName);
         SceneManager.LoadScene(sceneName);
-        
     }
 }

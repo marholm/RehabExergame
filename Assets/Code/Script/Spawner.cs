@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Spawns fruit objects at random locations
@@ -10,18 +12,25 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] fruitsPrefab;
     public GameObject peanutPrefab;
-    private float delayTime = 20f;
-
     [HideInInspector] public StopOnCollision stopOnCollision;
+    private float delayTime = 0;
+    private int totalRepetitions;
+    
     
     void Awake()
     {
         // use to stop spawner when a fruit is caught
         stopOnCollision = GetComponent<StopOnCollision>();
+
+        // Get the difficulty settings from DifficultyManager
+        delayTime = DifficultySettingsManager.spawnDelay;
+        totalRepetitions = DifficultySettingsManager.spawnRepetitions;        
     }
     
     void Start()
     {
+        Debug.Log("SPAWN DELAY TIME: " + delayTime);
+        Debug.Log("SPAWN REPETITIONS: " + totalRepetitions);
         StartCoroutine(SpawnRandomGameObject());
     }
 
@@ -43,7 +52,7 @@ public class Spawner : MonoBehaviour
             Instantiate(peanutPrefab, randomSpawnPosition, Quaternion.identity);
         }
 
-        yield return new WaitForSeconds(delayTime); // Wait between each spawn
+        yield return new WaitForSeconds(delayTime); // Wait time between each spawn
         StartCoroutine(SpawnRandomGameObject());
     }
 
