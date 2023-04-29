@@ -23,27 +23,9 @@ public class FollowPlayer : MonoBehaviour
             stopOnCollision = GetComponent<StopOnCollision>();
         }
     }
-
-    /*void Update()
-    {
-        // Should I use MovePosition in FixedUpdate() isntead since it matches the timesteps of the physics engine
-        // Debug.Log("Referenced object: " + stopOnCollision);
-
-        if (stopOnCollision.caughtByLeft)
-        {
-            rb.MovePosition(targetLeft.position);
-        }
-        else if (stopOnCollision.caughtByRight)
-        {
-            rb.MovePosition(targetRight.position);
-        }
-    }*/
-
-    
+ 
     void FixedUpdate()
-    {
-        // rb.MovePosition(targetLeft.position);     
-
+    {   
         if (stopOnCollision.caughtByLeft)
         {
             rb.MovePosition(targetLeft.position);

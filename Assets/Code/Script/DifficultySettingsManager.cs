@@ -10,7 +10,7 @@ public class DifficultySettingsManager : MonoBehaviour
     //private Dropdown dropdown;
     public TMPro.TMP_Dropdown dropdown;
     [HideInInspector] static public int spawnRepetitions = 10;    // how many spawns in a game, default 5
-    [HideInInspector] static public float spawnDelay = 5;        // how fast new fruit spawns, default 5
+    [HideInInspector] static public float spawnDelay = 20;        // how fast new fruit spawns, default 5
 
     void Awake()
     {

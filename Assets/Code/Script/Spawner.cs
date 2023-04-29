@@ -40,7 +40,6 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < totalRepetitions; i++)
         {
             // Wait for a set time
-            // yield return new WaitForSeconds(Random.Range(1, 2));
             yield return new WaitForSeconds(delayTime);
 
             // Pick a fruit randomly   
