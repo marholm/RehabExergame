@@ -454,7 +454,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &634180805
 Canvas:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 765897653}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webCamName: 
   webCamResolution: {x: 800, y: 600}
-  staticInput: {fileID: 8400000, guid: 5e319a1b124140d4f83d2c9b2bbbc0f6, type: 2}
+  staticInput: {fileID: 0}
 --- !u!328 &636196909
 VideoPlayer:
   m_ObjectHideFlags: 0

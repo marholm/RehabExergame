@@ -128,10 +128,6 @@ public class PoseVisuallizer3D : MonoBehaviour
         jointPoints[PositionIndex.chest.Int()].Pos3D = Vector3.Lerp(hipCenter, shoulderCenter, 0.7f);
         // Calculate chest score
         jointPoints[PositionIndex.chest.Int()].score3D = hipsScores3D.Min();
-
-        // Debug.Log("RIGHT-WRIST GPWL: " + detecter.GetPoseWorldLandmark(15));     // This method lets me use the coordinates
-
-    
     } 
 
     void OnRenderObject()
@@ -140,20 +136,20 @@ public class PoseVisuallizer3D : MonoBehaviour
         if (showSkeleton)
         {
             // Use predicted pose world landmark results on the ComputeBuffer (GPU) memory.
-        material.SetBuffer("_worldVertices", detecter.worldLandmarkBuffer);
-        // Set pose landmark counts.
-        material.SetInt("_keypointCount", detecter.vertexCount);
-        material.SetFloat("_humanExistThreshold", humanExistThreshold);
-        material.SetVectorArray("_linePair", linePair);
-        material.SetMatrix("_invViewMatrix", mainCamera.worldToCameraMatrix.inverse);
+            material.SetBuffer("_worldVertices", detecter.worldLandmarkBuffer);
+            // Set pose landmark counts.
+            material.SetInt("_keypointCount", detecter.vertexCount);
+            material.SetFloat("_humanExistThreshold", humanExistThreshold);
+            material.SetVectorArray("_linePair", linePair);
+            material.SetMatrix("_invViewMatrix", mainCamera.worldToCameraMatrix.inverse);
 
-        // Draw 35 world body topology lines.
-        material.SetPass(2);
-        Graphics.DrawProceduralNow(MeshTopology.Triangles, 6, BODY_LINE_NUM);
+            // Draw 35 world body topology lines.
+            material.SetPass(2);
+            Graphics.DrawProceduralNow(MeshTopology.Triangles, 6, BODY_LINE_NUM);
 
-        // Draw 33 world landmark points.
-        material.SetPass(3);
-        Graphics.DrawProceduralNow(MeshTopology.Triangles, 6, detecter.vertexCount);
+            // Draw 33 world landmark points.
+            material.SetPass(3);
+            Graphics.DrawProceduralNow(MeshTopology.Triangles, 6, detecter.vertexCount);
         
         }
     

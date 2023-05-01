@@ -158,6 +158,10 @@ public class VNectModel : MonoBehaviour
             hmdDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out hmdRotation);
         }
 
+        // TRY THIS START
+        // Head rotation
+        jointPoints[PositionIndex.head.Int()].Transform.rotation = hmdRotation;
+        // TRY THIS END
         /*
         if (vrRunning)
         {
@@ -198,7 +202,10 @@ public class VNectModel : MonoBehaviour
     {
         // vrRunning = isVrRunning();
         // Enable for Vr
-        // hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
+
+        // TRY THIS START
+        hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
+        // TRY THIS END
 
         jointPoints = new JointPoint[PositionIndex.Count.Int()];
         for (var i = 0; i < PositionIndex.Count.Int(); i++)
@@ -395,6 +402,10 @@ public class VNectModel : MonoBehaviour
         }
         */
 
+        // TRY THIS START - error: this changes pos of skeleton to be inside the plane
+        // jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.Nose.Int()].Pos3D + hmdPosition - jointPositionOffset;
+        // TRY THIS END
+
         jointPoints[PositionIndex.hips.Int()].Transform.rotation = Quaternion.LookRotation(forward) * jointPoints[PositionIndex.hips.Int()].InverseRotation;
 
         
@@ -412,14 +423,6 @@ public class VNectModel : MonoBehaviour
             }
         }
 
-        // Head Rotation
-        // Took this out of the below !vrRunning
-        // When this head rotation is enabled, the head folds in an unnatural position
-        /*var gaze = jointPoints[PositionIndex.Nose.Int()].Pos3D - jointPoints[PositionIndex.head.Int()].Pos3D;
-        var f = TriangleNormal(jointPoints[PositionIndex.Nose.Int()].Pos3D, jointPoints[PositionIndex.rEar.Int()].Pos3D, jointPoints[PositionIndex.lEar.Int()].Pos3D);
-        var head = jointPoints[PositionIndex.head.Int()];
-        head.Transform.rotation = Quaternion.LookRotation(gaze, f) * head.InverseRotation;*/
-
         /*
         //Head rotation
         if(!vrRunning)
@@ -431,20 +434,7 @@ public class VNectModel : MonoBehaviour
             head.Transform.rotation = Quaternion.LookRotation(gaze, f) * head.InverseRotation;
         }
         */
-
-
-        // Wrist Rotation
-        // Took this out of the below !vrRunning
-        // When this wrist rotation is enabled, the hands fold in an unnatural position
-        /*var lWrist = jointPoints[PositionIndex.lWrist.Int()];
-        var lf = TriangleNormal(lWrist.Pos3D, jointPoints[PositionIndex.lPinky.Int()].Pos3D, jointPoints[PositionIndex.lThumb.Int()].Pos3D);
-        lWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.lThumb.Int()].Pos3D - jointPoints[PositionIndex.lPinky.Int()].Pos3D, lf) * lWrist.InverseRotation;
-
-        var rWrist = jointPoints[PositionIndex.rWrist.Int()];
-        var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
-        rWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Pos3D - jointPoints[PositionIndex.rPinky.Int()].Pos3D, rf) * rWrist.InverseRotation;*/
-
-
+        
         /*
         if(!vrRunning)
         {

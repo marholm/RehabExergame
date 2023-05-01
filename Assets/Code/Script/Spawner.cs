@@ -46,8 +46,8 @@ public class Spawner : MonoBehaviour
             int randomFruitIndex = Random.Range(0, fruitsPrefab.Length);
 
             // Pick a random position for the fruit to spawn 
-            // Vector3 randomSpawnPosition = new Vector3(Random.Range(-1,2), 4, Random.Range(-1,2));
-            Vector3 randomSpawnPosition = new Vector3(0, 4, 0);    // Force position of spawns to always hit player (for testing)
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(-1.5f,1.5f), 4, Random.Range(0,0.25f));
+            // Vector3 randomSpawnPosition = new Vector3(0, 4, 0);    // Force position of spawns to always hit player (for testing)
 
             //spawn a fruit prefab
             Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);

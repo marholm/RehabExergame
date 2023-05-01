@@ -11,6 +11,8 @@ TagManager:
   - RightHand
   - LeftHand
   - FruitBasket
+  - Head
+  - XROrigin
   layers:
   - Default
   - TransparentFX
