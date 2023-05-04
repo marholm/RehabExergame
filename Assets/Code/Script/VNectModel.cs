@@ -398,6 +398,7 @@ public class VNectModel : MonoBehaviour
             jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D + initPosition - jointPositionOffset;
         else
         {
+            // enabling this else places skeleton in wrong position (falls into floor :'( )
             jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.Nose.Int()].Pos3D + hmdPosition - jointPositionOffset;
         }
         */

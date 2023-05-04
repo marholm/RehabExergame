@@ -23,8 +23,15 @@ public class Spawner : MonoBehaviour
         stopOnCollision = GetComponent<StopOnCollision>();
 
         // Get the difficulty settings from DifficultyManager
-        delayTime = DifficultySettingsManager.spawnDelay;
-        totalRepetitions = DifficultySettingsManager.spawnRepetitions;        
+        //delayTime = DifficultySettingsManager.spawnDelay;
+        delayTime = 15;
+        //delayTime = 10;
+        //delayTime = 1;
+        
+        //totalRepetitions = DifficultySettingsManager.spawnRepetitions; 
+        totalRepetitions = 10;
+        //totalRepetitions = 20;
+        //totalRepetitions = 60;
     }
     
     void Start()
@@ -46,7 +53,7 @@ public class Spawner : MonoBehaviour
             int randomFruitIndex = Random.Range(0, fruitsPrefab.Length);
 
             // Pick a random position for the fruit to spawn 
-            Vector3 randomSpawnPosition = new Vector3(Random.Range(-1.5f,1.5f), 4, Random.Range(0,0.25f));
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(-1.2f,1.2f), 4, Random.Range(0.1f,0.25f));
             // Vector3 randomSpawnPosition = new Vector3(0, 4, 0);    // Force position of spawns to always hit player (for testing)
 
             //spawn a fruit prefab
@@ -58,29 +65,5 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(10);
         SceneManager.LoadScene("Credits"); 
     }  
-
-    /*
-    I start: 
-    for (int i = 0; i < totalRepetitions; i++)
-    {
-        Debug.Log("# spawns: " + i);
-    }
-    
-    IEnumerator SpawnRandomGameObject()
-    {
-        // Wait for a set time
-        // yield return new WaitForSeconds(Random.Range(1, 2));
-        yield return new WaitForSeconds(delayTime);
-
-        // Pick a fruit randomly   
-        int randomFruitIndex = Random.Range(0, fruitsPrefab.Length);
-
-        // Pick a random position for the fruit to spawn 
-        // Vector3 randomSpawnPosition = new Vector3(Random.Range(-1,2), 4, Random.Range(-1,2));
-        Vector3 randomSpawnPosition = new Vector3(0, 4, 0);  // Force position of spawns to always hit player (for testing)
-
-        //spawn a fruit prefab
-        Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);
-    } */  
 }
 

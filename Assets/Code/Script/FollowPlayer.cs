@@ -9,14 +9,14 @@ public class FollowPlayer : MonoBehaviour
     
     [HideInInspector] public StopOnCollision stopOnCollision; 
 
-    public Transform targetLeft; 
-    public Transform targetRight; 
+    [HideInInspector] public Transform targetLeft; 
+    [HideInInspector] public Transform targetRight; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        targetLeft = GameObject.FindWithTag("LeftHand").GetComponent<Transform>();
-        targetRight = GameObject.FindWithTag("RightHand").GetComponent<Transform>();
+        targetLeft = GameObject.FindWithTag("LeftHandPos").GetComponent<Transform>();
+        targetRight = GameObject.FindWithTag("RightHandPos").GetComponent<Transform>();
 
         if (stopOnCollision is null)
         {

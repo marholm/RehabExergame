@@ -24,20 +24,20 @@ public class DifficultySettingsManager : MonoBehaviour
         {
             // do easy mode
             spawnRepetitions = 10;
-            spawnDelay = 20f;
+            spawnDelay = 15f;
             Debug.Log("Set to EASY mode");
         }
         else if (dropdown.value == 1)
         {
             // do medium mode
-            spawnRepetitions = 15;
+            spawnRepetitions = 20;
             spawnDelay = 10f;
             Debug.Log("Set to MEDIUM mode");
         }
         else if (dropdown.value == 2)
         {
             // do hard mode
-            spawnRepetitions = 20;
+            spawnRepetitions = 35;
             spawnDelay = 5f; 
             Debug.Log("Set to HARD mode");
         }
