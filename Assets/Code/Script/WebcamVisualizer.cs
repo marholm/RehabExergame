@@ -7,12 +7,6 @@ public class WebcamVisualizer : MonoBehaviour
 {
     [SerializeField] WebCamInput webCamInput;
     [SerializeField] RawImage inputImageUI;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void LateUpdate()
