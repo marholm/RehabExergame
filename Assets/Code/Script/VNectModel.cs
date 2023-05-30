@@ -126,12 +126,8 @@ public class VNectModel : MonoBehaviour
 
     // HMD 
     private InputDevice hmdDevice;
-    // private bool lastPrimaryButtonValue = false;     // ERROR
-    // private bool vrRunning = false;
     private Vector3 hmdPosition;
     private Quaternion hmdRotation;
-
-    // private string sceneName;   // ? Not necessary when only one scene
     public PoseVisuallizer3D PoseVisuallizer3D;
     public GameObject Instruction;
     private bool displayText = false;    // ENABLE FOR CALIIBRATION INTERFACE
@@ -142,8 +138,6 @@ public class VNectModel : MonoBehaviour
     // ENABLE for Calibration interface and scene choice
     void Awake()
     {
-        // sceneName = SceneManager.GetActiveScene().name;
-
         Instruction.SetActive(displayText);
     }
     
@@ -158,33 +152,8 @@ public class VNectModel : MonoBehaviour
             hmdDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out hmdRotation);
         }
 
-        // TRY THIS START
         // Head rotation
         jointPoints[PositionIndex.head.Int()].Transform.rotation = hmdRotation;
-        // TRY THIS END
-        /*
-        if (vrRunning)
-        {
-            // Head rotation
-            jointPoints[PositionIndex.head.Int()].Transform.rotation = hmdRotation;
-
-            // Wrist positions
-
-            // Wrist rotations
-
-            //Elbow positions
-        }
-        */
-
-        // ADD CALIBRATION TRIGGER HERE 
-        /*
-        bool primaryButtonValue = false;
-        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            RunCalibration();
-            lastPrimaryButtonValue = primaryButtonValue;        // evt skal denne utenfor if-en
-        }
-        */
 
         if (jointPoints != null)
         {
@@ -200,12 +169,7 @@ public class VNectModel : MonoBehaviour
     /// <returns></returns>
     public JointPoint[] Initialize()
     {
-        // vrRunning = isVrRunning();
-        // Enable for Vr
-
-        // TRY THIS START
         hmdDevice = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
-        // TRY THIS END
 
         jointPoints = new JointPoint[PositionIndex.Count.Int()];
         for (var i = 0; i < PositionIndex.Count.Int(); i++)
@@ -391,21 +355,6 @@ public class VNectModel : MonoBehaviour
         var forward = TriangleNormal(jointPoints[PositionIndex.hips.Int()].Pos3D, jointPoints[PositionIndex.lHip.Int()].Pos3D, jointPoints[PositionIndex.rHip.Int()].Pos3D);
         
         jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D + initPosition - jointPositionOffset; // Took this out of the if-else for Vr
-        
-        /*
-        // This vrRunning if-else only utilized hmdDevicePosition, so could be useful
-        if(!vrRunning)
-            jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D + initPosition - jointPositionOffset;
-        else
-        {
-            // enabling this else places skeleton in wrong position (falls into floor :'( )
-            jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.Nose.Int()].Pos3D + hmdPosition - jointPositionOffset;
-        }
-        */
-
-        // TRY THIS START - error: this changes pos of skeleton to be inside the plane
-        // jointPoints[PositionIndex.hips.Int()].Transform.position = jointPoints[PositionIndex.hips.Int()].Pos3D - jointPoints[PositionIndex.Nose.Int()].Pos3D + hmdPosition - jointPositionOffset;
-        // TRY THIS END
 
         jointPoints[PositionIndex.hips.Int()].Transform.rotation = Quaternion.LookRotation(forward) * jointPoints[PositionIndex.hips.Int()].InverseRotation;
 
@@ -423,32 +372,6 @@ public class VNectModel : MonoBehaviour
                 jointPoint.Transform.rotation = Quaternion.LookRotation(jointPoint.Pos3D - jointPoint.Child.Pos3D, forward) * jointPoint.InverseRotation;
             }
         }
-
-        /*
-        //Head rotation
-        if(!vrRunning)
-        {
-            // Head Rotation
-            var gaze = jointPoints[PositionIndex.Nose.Int()].Pos3D - jointPoints[PositionIndex.head.Int()].Pos3D;
-            var f = TriangleNormal(jointPoints[PositionIndex.Nose.Int()].Pos3D, jointPoints[PositionIndex.rEar.Int()].Pos3D, jointPoints[PositionIndex.lEar.Int()].Pos3D);
-            var head = jointPoints[PositionIndex.head.Int()];
-            head.Transform.rotation = Quaternion.LookRotation(gaze, f) * head.InverseRotation;
-        }
-        */
-        
-        /*
-        if(!vrRunning)
-        {
-            // Wrist rotation
-            var lWrist = jointPoints[PositionIndex.lWrist.Int()];
-            var lf = TriangleNormal(lWrist.Pos3D, jointPoints[PositionIndex.lPinky.Int()].Pos3D, jointPoints[PositionIndex.lThumb.Int()].Pos3D);
-            lWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.lThumb.Int()].Pos3D - jointPoints[PositionIndex.lPinky.Int()].Pos3D, lf) * lWrist.InverseRotation;
-
-            var rWrist = jointPoints[PositionIndex.rWrist.Int()];
-            var rf = TriangleNormal(rWrist.Pos3D, jointPoints[PositionIndex.rThumb.Int()].Pos3D, jointPoints[PositionIndex.rPinky.Int()].Pos3D);
-            rWrist.Transform.rotation = Quaternion.LookRotation(jointPoints[PositionIndex.rThumb.Int()].Pos3D - jointPoints[PositionIndex.rPinky.Int()].Pos3D, rf) * rWrist.InverseRotation;
-        }
-        */
 
         foreach (var sk in Skeletons)
         {
@@ -501,23 +424,6 @@ public class VNectModel : MonoBehaviour
         Skeletons.Add(sk);
     }
 
-    // Checks if an Xr device is connected and running - if so returns True
-    /*
-    private static bool isVrRunning()
-    {
-        var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-        SubsystemManager.GetInstances<XRDisplaySubsystem>(xrDisplaySubsystems);
-        foreach (var xrDisplay in xrDisplaySubsystems)
-        {
-            if (xrDisplay.running)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    */
-
     private Vector3 GetCenter(GameObject obj)
     {
         Vector3 sumVector = Vector3.zero;
@@ -543,52 +449,6 @@ public class VNectModel : MonoBehaviour
                 }));
     }
 
-
-    /*
-    // Pose Calibration Routine - with Vr if-else
-    private void RunCalibration()
-    {
-        Instruction.SetActive(true);
-        if (!vrRunning)
-        {
-            Debug.Log("Avatar calibration will begin in 5 seconds, please stand in T-pose!");
-            
-            StartCoroutine(PoseVisuallizer3D.PoseCalibrationRoutine(vrRunning, poseTDimensionsCalculated => {
-                    ScaleAvatar(poseTDimensionsCalculated);
-                    Debug.Log("Avatar calibration done!");
-                    Instruction.SetActive(false);
-                }));
-        }
-        else
-        {
-            Debug.Log("VR calibration will begin in 5 seconds, please stand in T-pose!");
-            StartCoroutine(VrCalibrationRoutine(vrTDimensionsCalculated => {
-                Vector3 vrTDimensions = vrTDimensionsCalculated;
-            
-                StartCoroutine(PoseVisuallizer3D.PoseCalibrationRoutine(vrRunning, poseTDimensionsCalculated => {
-                        PoseVisuallizer3D.ScalePose(vrTDimensions, poseTDimensionsCalculated);
-                        Debug.Log("VR calibration done!");
-                        Instruction.SetActive(false);
-                    }));
-            }));
-        }
-    }*/
-
-    /*
-    // Calibration routine for VR utilizing HMD and controllers for positions
-    // Only relevant once we enable VR
-    private IEnumerator vrCalibrationRoutine(System.Action<Vector3> callback = null)
-    {
-        yield return new WaitForSeconds(5);
-        Vector3 vrTDimensions = Vector3.zero;
-        // changed fron leftControllerPosition, rightControllerPosition to lWrist, rWrist in vectorformat
-        // vrTDimensions.x = Vector3.Distance(leftControllerPosition, rightControllerPosition);
-        vrTDimensions.y = hmdPosition.y;
-        ScaleAvatar(vrTDimensions);
-        callback (vrTDimensions);
-    }
-    */
-    
 
     ///<summary>
     /// Scale Avatar based on physical dimensions of user's body

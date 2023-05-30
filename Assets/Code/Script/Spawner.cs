@@ -23,9 +23,11 @@ public class Spawner : MonoBehaviour
         stopOnCollision = GetComponent<StopOnCollision>();
 
         // Get the difficulty settings from DifficultyManager
-        delayTime = DifficultySettingsManager.spawnDelay;
+        //delayTime = DifficultySettingsManager.spawnDelay;
+        delayTime = 5;
         
-        totalRepetitions = DifficultySettingsManager.spawnRepetitions; 
+        //totalRepetitions = DifficultySettingsManager.spawnRepetitions; 
+        totalRepetitions = 10;
 
     }
     
