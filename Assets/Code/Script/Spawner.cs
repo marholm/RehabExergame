@@ -23,11 +23,11 @@ public class Spawner : MonoBehaviour
         stopOnCollision = GetComponent<StopOnCollision>();
 
         // Get the difficulty settings from DifficultyManager
-        //delayTime = DifficultySettingsManager.spawnDelay;
-        delayTime = 5;
+        delayTime = DifficultySettingsManager.spawnDelay;
+        //delayTime = 5;
         
-        //totalRepetitions = DifficultySettingsManager.spawnRepetitions; 
-        totalRepetitions = 10;
+        totalRepetitions = DifficultySettingsManager.spawnRepetitions; 
+        //totalRepetitions = 10;
 
     }
     
@@ -51,7 +51,6 @@ public class Spawner : MonoBehaviour
 
             // Pick a random position for the fruit to spawn 
             Vector3 randomSpawnPosition = new Vector3(Random.Range(-1.2f,1.2f), 4, Random.Range(0.1f,0.25f));
-            // Vector3 randomSpawnPosition = new Vector3(0, 4, 0);    // Force position of spawns to always hit player (for testing)
 
             //spawn a fruit prefab
             Instantiate(fruitsPrefab[randomFruitIndex], randomSpawnPosition, Quaternion.identity);

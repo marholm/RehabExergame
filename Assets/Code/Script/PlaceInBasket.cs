@@ -16,7 +16,6 @@ public class PlaceInBasket : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
-        // Check if fruit has been caught AND if it has hit the Basket   
         if ((stopOnCollision.caughtByLeft || stopOnCollision.caughtByRight) && (other.gameObject.tag == "FruitBasket"))
         {
             Debug.Log("Fruit hit basket. Add point for movement 2.");
