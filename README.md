@@ -4,5 +4,5 @@ This thesis project implemented a VR post-stroke motor rehabilitation exergame t
 The project is developed in Unity with C#. 
 
 <img width="731" alt="sceneviewenvironment" src="https://github.com/marholm/RehabExergame/assets/82164751/f9914268-8ac0-42c8-a89b-15c20aab443f">
-<img width="857" alt="bp_viv" src="https://github.com/marholm/RehabExergame/assets/82164751/07fc0801-742b-4d98-9d13-5f69b3bf2e2f">
+
 
